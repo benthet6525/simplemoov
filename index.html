@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projet CRTL + ALT + Elite - IA & Mobilité Urbaine</title>
     <style>
+        /* --- VARIABLES ET THÈME GLOBAL --- */
         :root {
-            --primary: #1a5276;
-            --primary-light: #2980b9;
-            --secondary: #e67e22;
-            --dark: #2c3e50;
-            --light: #f8f9fa;
+            --bg-main: #f4f7f6;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --accent-blue: #0f172a;
+            --electric-blue: #2563eb;
+            --accent-orange: #f97316;
             --white: #ffffff;
-            --shadow: 0 4px 6px rgba(0,0,0,0.1);
-            --border-radius: 8px;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
@@ -22,188 +24,423 @@
             padding: 0;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--dark);
-            background-color: #f0f3f4;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            line-height: 1.7;
         }
 
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: var(--white);
-            padding: 40px 20px;
-            text-align: center;
-            position: relative;
+        /* --- BARRE DE NAVIGATION ANIMÉE --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            box-shadow: 0 1px 0px rgba(0,0,0,0.05);
+            transition: var(--transition-smooth);
         }
 
-        header h1 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            font-weight: 300;
-        }
-
-        .meta-info {
-            margin-top: 15px;
-            font-size: 0.9rem;
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 5px 15px;
-            border-radius: 20px;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        .card {
-            background-color: var(--white);
-            border-radius: var(--border-radius);
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: var(--shadow);
-            border-left: 5px solid var(--primary);
-        }
-
-        .card h2 {
-            color: var(--primary);
-            font-size: 1.4rem;
-            margin-bottom: 15px;
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #eaeded;
-            padding-bottom: 8px;
         }
 
-        .card h2 .icon {
-            margin-right: 10px;
-            font-size: 1.6rem;
+        .logo {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--accent-blue);
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--electric-blue);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-item a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 8px 0;
+            transition: color 0.3s ease;
+        }
+
+        /* Animation de soulignement du menu */
+        .nav-item a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--electric-blue);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-item a:hover {
+            color: var(--accent-blue);
+        }
+
+        .nav-item a:hover::after {
+            width: 100%;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            margin-top: 80px;
+            padding: 100px 20px 80px 20px;
+            background: var(--white);
+            text-align: center;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .hero-container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .badge-team {
+            background: #eff6ff;
+            color: var(--electric-blue);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--accent-blue);
+            letter-spacing: -1px;
+            margin-bottom: 25px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .meta-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            border-top: 1px solid #f1f5f9;
+            padding-top: 25px;
+        }
+
+        .meta-item strong {
+            color: var(--accent-blue);
+        }
+
+        /* --- CORPS DE PAGE / SECTIONS --- */
+        .section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 40px;
+            position: relative;
+            letter-spacing: -0.5px;
+        }
+
+        /* Grille asymétrique moderne (Texte d'un côté, image de l'autre) */
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .row-reverse {
+            flex-direction: row-reverse;
+        }
+
+        .col-text {
+            flex: 1;
+            min-width: 320px;
+        }
+
+        .col-image {
+            flex: 1;
+            min-width: 320px;
+        }
+
+        /* Style des vraies images avec effet pro */
+        .img-wrapper {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            transition: var(--transition-smooth);
+        }
+
+        .img-wrapper img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            display: block;
+            transition: var(--transition-smooth);
+        }
+
+        /* Effet zoom discret sur l'image au survol de la zone */
+        .img-wrapper:hover img {
+            transform: scale(1.04);
+        }
+
+        /* --- CARDS & COMPOSANTS BIEN DESIGNÉS --- */
+        .card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0,0,0,0.02);
+            transition: var(--transition-smooth);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
         .card-highlight {
-            border-left-color: var(--secondary);
-        }
-
-        .card-highlight h2 {
-            color: var(--secondary);
-        }
-
-        p {
-            margin-bottom: 15px;
-            text-align: justify;
-        }
-
-        ul {
-            list-style-position: inside;
-            margin-left: 10px;
-            margin-bottom: 15px;
-        }
-
-        li {
-            margin-bottom: 8px;
-        }
-
-        .badge {
-            background-color: #e8f4f8;
-            color: var(--primary);
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            display: inline-block;
-            margin-right: 8px;
-            margin-bottom: 8px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px 20px;
-            background-color: var(--dark);
+            background: var(--accent-blue);
             color: var(--white);
+        }
+
+        .card-highlight .section-title {
+            color: var(--white);
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        /* Puces personnalisées et élégantes */
+        .feature-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--electric-blue);
+            font-weight: bold;
+        }
+
+        .card-highlight .feature-list li::before {
+            color: var(--accent-orange);
+        }
+
+        .badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .tag {
+            background: #f1f5f9;
+            color: var(--accent-blue);
+            padding: 8px 16px;
+            border-radius: 8px;
             font-size: 0.9rem;
-            margin-top: 40px;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        .tag:hover {
+            background: var(--electric-blue);
+            color: var(--white);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--accent-blue);
+            color: rgba(255,255,255,0.7);
+            padding: 50px 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        footer strong {
+            color: var(--white);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .nav-menu { display: none; } /* Simplifié pour mobile */
+            .row { flex-direction: column; }
+            .meta-grid { flex-direction: column; gap: 10px; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Comment l'IA pourrait-elle améliorer nos déplacements de tous les jours ?</h1>
-        <p>Projet d'Innovation & Technologie</p>
-        <div class="meta-info">
-            <strong>Groupe :</strong> CRTL + ALT + Elite &nbsp;|&nbsp; <strong>Date :</strong> 04/06/2026 &nbsp;|&nbsp; <strong>Classe :</strong> 2MTNE
+    <!-- BARRE DE NAVIGATION (ANIMÉE AU SURVOL) -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">CRTL.ALT.<span>ELITE</span></div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#besoins">Besoins</a></li>
+                <li class="nav-item"><a href="#solution">Solution</a></li>
+                <li class="nav-item"><a href="#public">Public</a></li>
+                <li class="nav-item"><a href="#technologie">Technologie</a></li>
+                <li class="nav-item"><a href="#contraintes">Éthique</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- SECTION HERO (INTRODUCTION HAUT DE GAMME) -->
+    <header class="hero">
+        <div class="hero-container">
+            <span class="badge-team">Projet Innovation 2026</span>
+            <h1>Comment l'IA pourrait-elle améliorer nos déplacements de tous les jours ?</h1>
+            <p>Optimisation prédictive des flux urbains et transports pour une transition vers des villes plus fluides et éco-responsables.</p>
+            
+            <div class="meta-grid">
+                <div class="meta-item">Groupe : <strong>CRTL + ALT + Elite</strong></div>
+                <div class="meta-item">Date : <strong>04/06/2026</strong></div>
+                <div class="meta-item">Classe : <strong>2MTNE</strong></div>
+            </div>
         </div>
     </header>
 
-    <div class="container">
-        
-        <div class="card">
-            <h2><span class="icon">🔍</span> Besoin Identifié (Identified Needs)</h2>
-            <p>Notre projet répond à une problématique simple mais essentielle : <strong>comment améliorer nos déplacements de tous les jours ?</strong> Il s'agit de trouver des solutions face aux différents problèmes et imprévus que l'on rencontre lors de nos trajets quotidiens, et de définir la manière dont l'Intelligence Artificielle peut nous aider à les résoudre.</p>
-        </div>
+    <!-- CONTENU PRINCIPAL -->
+    <main class="container">
 
-        <div class="card card-highlight">
-            <h2><span class="icon">💡</span> Proposition de Valeur Unique (Unique Value Proposition)</h2>
-            <p>Notre projet utilise l'<strong>IA pour améliorer les déplacements quotidiens</strong> grâce à une analyse avancée du trafic en temps réel.</p>
-            <p>L'IA va permettre de :</p>
-            <ul>
-                <li>Proposer les meilleurs itinéraires possibles instantanément.</li>
-                <li>Éviter efficacement les embouteillages.</li>
-                <li>Anticiper, former et éviter les retards dans les transports en commun.</li>
-            </ul>
-            <p><strong>Notre différence :</strong> Contrairement aux solutions actuelles, notre application anticipe les problèmes avant qu'ils ne surviennent. Elle offre des recommandations personnalisées qui permettent de gagner du temps, d'améliorer la sécurité et de diminuer la pollution.</p>
-        </div>
-
-        <div class="card">
-            <h2><span class="icon">🎯</span> Cible & Utilisateurs Finaux (Target - End Users)</h2>
-            <p>Ce projet est conçu pour <strong>toutes les personnes qui se déplacent chaque jour</strong>, que ce soit pour aller à l'école, au travail, ou pour leurs activités personnelles. Notre solution s'adresse directement aux :</p>
-            <div>
-                <span class="badge">Conducteurs</span>
-                <span class="badge">Usagers des transports en commun</span>
-                <span class="badge">Cyclistes</span>
-                <span class="badge">Piétons</span>
+        <!-- SECTION 1 : BESOIN IDENTIFIÉ -->
+        <section id="besoins" class="section">
+            <div class="row">
+                <div class="col-text">
+                    <h2 class="section-title">Le Besoin Identifié</h2>
+                    <p>Chaque jour, des millions de personnes font face à la saturation des infrastructures de transport. Notre projet prend sa source au cœur de cette frustration quotidienne.</p>
+                    <p>L'objectif majeur est de trouver une réponse concrète aux ralentissements, aux imprévus techniques et à la perte de temps subie lors des trajets quotidiens, en analysant la manière précise dont l'Intelligence Artificielle peut restructurer ces flux.</p>
+                </div>
+                <div class="col-image">
+                    <div class="img-wrapper">
+                        <!-- VRAIE PHOTO : Vue d'un trafic urbain dense en mouvement -->
+                        <img src="https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=800&q=80" alt="Trafic et embouteillages réels en ville">
+                    </div>
+                </div>
             </div>
-            <p style="margin-top: 15px;">L'IA les aidera au quotidien à gagner du temps, éviter le stress des bouchons et rendre leurs déplacements plus sûrs et plus efficaces.</p>
-        </div>
+        </section>
 
-        <div class="card">
-            <h2><span class="icon">🤖</span> Rôle de l'IA dans le projet</h2>
-            <p>Pour fonctionner, l'application aura besoin de croiser plusieurs types de technologies et de données : des <strong>données d'IA, des données de géolocalisation GPS, ainsi que des informations de trafic en temps réel</strong>.</p>
-            <p>Grâce à cela, l'IA analyse les flux pour proposer les meilleurs trajets et faire gagner du temps. De plus, pour garantir une utilisation responsable, les informations et données des utilisateurs seront hautement sécurisées.</p>
-        </div>
+        <!-- SECTION 2 : PROPOSITION DE VALEUR (CARD METTRE EN VALEUR) -->
+        <section id="solution" class="section">
+            <div class="card card-highlight">
+                <h2 class="section-title">Notre Proposition de Valeur Unique</h2>
+                <p>Nous développons un écosystème intelligent capable d'analyser, d'anticiper et de réguler les déplacements urbains en temps réel.</p>
+                
+                <ul class="feature-list">
+                    <li><strong>Calcul d'itinéraires dynamiques :</strong> Adaptation instantanée du parcours en fonction des micro-événements routiers.</li>
+                    <li><strong>Évitement proactif des congestions :</strong> Dispersion intelligente des flux de véhicules en amont des points de blocage.</li>
+                    <li><strong>Régulation des transports en commun :</strong> Anticiper et lisser les retards sur les lignes de bus et réseaux ferroviaires.</li>
+                </ul>
+                <p style="margin-top: 20px; opacity: 0.9;">
+                    <strong>Ce qui nous différencie :</strong> Là où les applications actuelles se contentent de constater les bouchons, notre IA anticipe les perturbations avant qu'elles ne se forment. L'expérience devient entièrement personnalisée, économique en temps et drastiquement moins polluante.
+                </p>
+            </div>
+        </section>
 
-        <div class="card">
-            <h2><span class="icon">🤝</span> Parties Prenantes (Stakeholders)</h2>
-            <p>Pour développer ce système, nous devrons nous entourer de différents acteurs clés :</p>
-            <ul>
-                <li>Des <strong>spécialistes en IA</strong> pour bâtir l'architecture algorithmique.</li>
-                <li>Des <strong>entreprises de transport</strong> pour partager les données de trafic.</li>
-                <li>Le <strong>gouvernement et les villes</strong> pour encadrer le projet, obtenir les autorisations et valider la sécurité du réseau.</li>
-            </ul>
-        </div>
+        <!-- SECTION 3 : PUBLIC CIBLE -->
+        <section id="public" class="section">
+            <div class="row row-reverse">
+                <div class="col-text">
+                    <h2 class="section-title">Public Cible & Utilisateurs</h2>
+                    <p>Cette solution globale n'exclut personne et s'adresse directement à l'intégralité des acteurs de la mobilité quotidienne. Qu'il s'agisse de se rendre sur son lieu de travail, d'aller étudier ou de se déplacer pour les loisirs, l'écosystème englobe :</p>
+                    
+                    <div class="badge-group">
+                        <div class="tag">Automobilistes / Conducteurs</div>
+                        <div class="tag">Usagers des Réseaux Communs</div>
+                        <div class="tag">Mobilités Douces (Cyclistes)</div>
+                        <div class="tag">Piétons</div>
+                    </div>
+                </div>
+                <div class="col-image">
+                    <div class="img-wrapper">
+                        <!-- VRAIE PHOTO : Personne qui attend un bus moderne en ville -->
+                        <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80" alt="Transports en commun réels">
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <div class="card card-highlight">
-            <h2><span class="icon">⚠️</span> Contraintes & Barrières Éthiques (Barriers)</h2>
-            <p>Nous avons identifié des obstacles majeurs pour la mise en œuvre :</p>
-            <ul>
-                <li>L'accès à des <strong>données fiables</strong> et stables en temps réel est l'un des principaux obstacles techniques de ce projet.</li>
-                <li><strong>Sécurité & Éthique :</strong> Les utilisateurs ne seront pas tracés sans leur accord. Un point d'honneur est mis sur le fait que leurs données personnelles et de déplacement doivent impérativement être protégées.</li>
-            </ul>
-        </div>
+        <!-- SECTION 4 : TECHNOLOGIE & PARTIES PRENANTES -->
+        <section id="technologie" class="section">
+            <div class="row">
+                <div class="col-text">
+                    <h2 class="section-title">Le Rôle de la Technologie</h2>
+                    <p>Le moteur de notre innovation repose sur l'interconnexion massive entre les technologies d'apprentissage machine (IA), la cartographie haute précision et les flux de géolocalisation GPS en continu.</p>
+                    <p>Pour matérialiser ce projet, une synergie forte est requise entre des <strong>ingénieurs spécialistes en IA</strong>, les <strong>opérateurs de transports</strong> et les <strong>institutions municipales / métropoles</strong> pour intégrer les infrastructures de la ville.</p>
+                </div>
+                <div class="col-image">
+                    <div class="img-wrapper">
+                        <!-- VRAIE PHOTO : Écrans de contrôle de données et serveurs de data réels -->
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Analyse de données réelles">
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    </div>
+        <!-- SECTION 5 : CONTRAINTES ET ÉTHIQUE -->
+        <section id="contraintes" class="section">
+            <div class="card">
+                <h2 class="section-title" style="color: var(--accent-orange);">Barrières, Limites & Soucis Éthiques</h2>
+                <p>Déployer une telle technologie impose de surmonter deux défis majeurs :</p>
+                <ul class="feature-list">
+                    <li><strong>La fiabilité de la donnée :</strong> Le modèle prédictif exige un flux constant et ultra-précis. La moindre coupure de données en direct peut fausser les algorithmes.</li>
+                    <li><strong>Le respect absolu de la vie privée :</strong> C’est notre ligne rouge éthique. Les données de déplacement et les profils des utilisateurs ne seront <strong>jamais partagés sans leur accord explicite</strong>. La sécurité des serveurs est pensée pour être totalement hermétique.</li>
+                </ul>
+            </div>
+        </section>
 
+    </main>
+
+    <!-- FOOTER CLASSIQUE ET PRO -->
     <footer>
-        <p>&copy; 2026 - Projet de Présentation IA & Mobilité | Équipe CRTL + ALT + Elite | Classe 2MTNE</p>
+        <p>&copy; 2026 - Document de Présentation Web | Équipe <strong>CRTL + ALT + Elite</strong> | Classe <strong>2MTNE</strong></p>
     </footer>
 
 </body>
