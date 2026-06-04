@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>AccessiRoute Demo — Version Complète</title>
+  <title>AccessiRoute Demo</title>
   <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -21,13 +21,20 @@
 
   .app-shell { display: flex; flex-direction: column; gap: 0; min-height: 680px; max-width: 1200px; margin: 0 auto; background: white; border-radius: var(--border-radius-lg); box-shadow: 0 10px 25px rgba(0,0,0,0.05); overflow: hidden; }
 
-  .top-bar { background: var(--blue-800); padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; }
+  .top-bar {
+    background: var(--blue-800); padding: 14px 20px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
   .logo { display: flex; align-items: center; gap: 10px; }
   .logo-icon { width: 36px; height: 36px; background: white; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
   .logo-text { color: white; font-size: 18px; font-weight: 500; letter-spacing: -0.3px; display: block; }
   .logo-sub { color: rgba(255,255,255,0.6); font-size: 11px; font-weight: 400; display: block; }
   .top-right { display: flex; gap: 8px; }
-  .top-btn { background: rgba(255,255,255,0.15); border: 0.5px solid rgba(255,255,255,0.3); color: white; border-radius: var(--border-radius-md); padding: 6px 12px; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.15s; }
+  .top-btn {
+    background: rgba(255,255,255,0.15); border: 0.5px solid rgba(255,255,255,0.3);
+    color: white; border-radius: var(--border-radius-md); padding: 6px 12px;
+    font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.15s;
+  }
   .top-btn:hover { background: rgba(255,255,255,0.25); }
   .top-btn.active { background: white; color: var(--blue-800); }
 
@@ -58,7 +65,6 @@
   .step-badge { font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-left: 4px; font-weight: 500; display: inline-block; }
   .badge-ok { background: var(--green-50); color: var(--green-600); }
   .badge-warn { background: var(--amber-50); color: var(--amber-600); }
-  .badge-ko { background: #FCEBEB; color: #A32D2D; }
 
   .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .option-card { padding: 10px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); cursor: pointer; transition: all 0.15s; display: flex; flex-direction: column; gap: 4px; background: var(--color-background-primary); }
@@ -96,50 +102,32 @@
   .map-area { position: relative; background: #ede9df; overflow: hidden; }
   svg.map-svg { width: 100%; height: 100%; display: block; }
   
-  /* Couches de carte */
+  /* Éléments de surcouche de carte personnalisés par profil */
   .map-layer { display: none; transition: opacity 0.3s ease; }
   .map-layer.active-layer { display: block; }
 
-  /* REMISE EN PLACE DE TOUS LES BOUTONS SUR LA CARTE */
-  .map-overlay-tl { position: absolute; top: 12px; left: 12px; display: flex; flex-direction: column; gap: 6px; z-index: 10; }
-  .map-overlay-tr { position: absolute; top: 12px; right: 12px; display: flex; flex-direction: column; gap: 6px; z-index: 10; }
-  
-  .map-btn { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 8px 12px; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--color-text-primary); display: flex; align-items: center; gap: 6px; white-space: nowrap; transition: background 0.1s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+  .map-overlay-tl { position: absolute; top: 12px; left: 12px; display: flex; flex-direction: column; gap: 6px; }
+  .map-overlay-tr { position: absolute; top: 12px; right: 12px; display: flex; flex-direction: column; gap: 6px; }
+  .map-btn { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 8px 12px; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--color-text-primary); display: flex; align-items: center; gap: 6px; white-space: nowrap; transition: background 0.1s; }
   .map-btn:hover { background: var(--color-background-secondary); }
   .map-btn.alert { border-color: var(--amber-100); background: var(--amber-50); color: var(--amber-600); }
-  .map-btn .ti { font-size: 16px; color: var(--blue-600); }
-  .map-btn.alert .ti { color: var(--amber-600); }
-
-  /* BOUTON FLOTTANT VOCAL (MICROPHONE) RE-DESSINÉ */
-  .voice-btn { position: absolute; bottom: 70px; right: 16px; width: 56px; height: 56px; border-radius: 50%; background: var(--blue-800); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.15s; color: white; font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); z-index: 10; }
-  .voice-btn:hover { transform: scale(1.08); }
-  .voice-btn.pulse { animation: pulse 1.5s infinite; }
-  @keyframes pulse {
-    0%,100% { transform: scale(1); box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
-    50% { transform: scale(1.12); box-shadow: 0 4px 20px rgba(24, 95, 165, 0.4); }
-  }
 
   .legend { position: absolute; bottom: 70px; left: 12px; background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
   .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--color-text-secondary); }
   .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-  .leg-accessible { background: #1D9E75; }
-  .leg-attention { background: #BA7517; }
-  .leg-danger { background: #E24B4A; }
-  .leg-line { width: 16px; height: 3px; border-radius: 2px; flex-shrink: 0; }
-  .leg-route { background: #185FA5; }
   
   .summary-bar { position: absolute; bottom: 0; left: 0; right: 0; background: var(--color-background-primary); border-top: 0.5px solid var(--color-border-tertiary); padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
   .summary-stats { display: flex; gap: 20px; align-items: center; }
   .summary-item { display: flex; flex-direction: column; align-items: center; }
-  .summary-val { font-size: 18px; font-weight: 500; color: var(--color-text-primary); line-height: 1; }
-  .summary-lbl { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
-  .summary-div { width: 0.5px; height: 32px; background: var(--color-border-tertiary); }
+  .summary-val { font-size: 16px; font-weight: 600; color: var(--color-text-primary); }
+  .summary-lbl { font-size: 11px; color: var(--color-text-secondary); }
   
   .tab-bar { display: flex; border-bottom: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); }
   .tab { flex: 1; padding: 12px 6px; text-align: center; font-size: 13px; font-weight: 500; color: var(--color-text-secondary); cursor: pointer; border-bottom: 2px solid transparent; display: flex; align-items: center; justify-content: center; gap: 6px; }
   .tab.active { color: var(--blue-800); border-bottom-color: var(--blue-800); font-weight: 600; }
 
-  .profile-map-badge { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); background: var(--blue-800); color: white; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 8px; z-index: 10; }
+  /* Carte d'information dynamique sur la carte */
+  .profile-map-badge { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); background: var(--blue-800); color: white; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 8px; }
 
   #toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(120px); background: #1e293b; color: white; padding: 10px 20px; border-radius: 30px; font-size: 13px; font-weight: 500; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
   </style>
@@ -181,10 +169,6 @@
             <i class="ti ti-map-pin"></i>
             <input type="text" value="15 rue de Rivoli, Paris" />
           </div>
-          <div class="info-banner info">
-            <i class="ti ti-info-circle"></i>
-            <p>Trajet calculé avec <strong>ascenseurs, rampes</strong> et <strong>passages piétons audio</strong>. Durée estimée : 24 min.</p>
-          </div>
         </div>
 
         <div class="section">
@@ -193,29 +177,22 @@
             <div class="step-item">
               <div class="step-icon walk"><i class="ti ti-walk"></i></div>
               <div class="step-info">
-                <div class="step-name">Marche piétonne — 180m <span class="step-badge badge-ok">Trottoir large</span></div>
-                <div class="step-detail">Passages protégés au feu sonore — Rue du Temple</div>
+                <div class="step-name">Marche piétonne — 180m</div>
+                <div class="step-detail">Passages protégés au feu sonore</div>
               </div>
             </div>
             <div class="step-item">
-              <div class="step-icon metro"><i class="ti ti-stairs-up"></i></div>
+              <div class="step-icon metro"><i class="ti ti-train"></i></div>
               <div class="step-info">
-                <div class="step-name">Entrée Métro — Arts et Métiers <span class="step-badge badge-ok">Ascenseur</span></div>
-                <div class="step-detail">Ascenseur PMR disponible et validé</div>
-              </div>
-            </div>
-            <div class="step-item">
-              <div class="step-icon warn"><i class="ti ti-alert-triangle"></i></div>
-              <div class="step-info">
-                <div class="step-name">Attention — Travaux rue de Rivoli <span class="step-badge badge-warn">Déviation</span></div>
-                <div class="step-detail">Chemin alternatif balisé accessible</div>
+                <div class="step-name">Métro Ligne 9 — Mairie de Montreuil</div>
+                <div class="step-detail">Rame à plancher plat de plain-pied</div>
               </div>
             </div>
           </div>
         </div>
         
         <div class="section">
-          <button class="cta-btn" onclick="startNav()"><i class="ti ti-navigation"></i> Démarrer la navigation</button>
+          <button class="cta-btn" onclick="startNav()"><i class="ti ti-navigation"></i> Lancer le calcul IA</button>
         </div>
       </div>
 
@@ -252,26 +229,12 @@
         </div>
 
         <div class="section">
-          <div class="section-title">Options d'accessibilité</div>
+          <div class="section-title">Filtres de carte</div>
           <div class="access-toggles">
             <div class="toggle-row" onclick="toggleSwitch(this)">
               <div class="toggle-left">
                 <span class="toggle-icon"><i class="ti ti-volume"></i></span>
-                <div><div class="toggle-label">Guidage vocal</div><div class="toggle-sub">Instructions lues à voix haute</div></div>
-              </div>
-              <div class="toggle-switch on"><div class="toggle-knob"></div></div>
-            </div>
-            <div class="toggle-row" onclick="toggleSwitch(this)">
-              <div class="toggle-left">
-                <span class="toggle-icon"><i class="ti ti-elevator"></i></span>
-                <div><div class="toggle-label">Ascenseurs prioritaires</div><div class="toggle-sub">Éviter escaliers mécaniques</div></div>
-              </div>
-              <div class="toggle-switch on"><div class="toggle-knob"></div></div>
-            </div>
-            <div class="toggle-row" onclick="toggleSwitch(this)">
-              <div class="toggle-left">
-                <span class="toggle-icon"><i class="ti ti-alert-circle"></i></span>
-                <div><div class="toggle-label">Alertes obstacles</div><div class="toggle-sub">Travaux, dénivellés signalés</div></div>
+                <div><div class="toggle-label">Alertes Sonores</div></div>
               </div>
               <div class="toggle-switch on"><div class="toggle-knob"></div></div>
             </div>
@@ -281,24 +244,9 @@
 
       <div id="tab-alerts" style="display:none;">
         <div class="section">
-          <div class="section-title">Alertes en temps réel</div>
+          <div class="section-title">Obstacles en cours</div>
           <div class="info-banner warn">
-            <i class="ti ti-tool"></i>
-            <p><strong>Travaux de voirie — Rue de Rivoli</strong><br>Trottoir bloqué à 200m. Déviation PMR en place.</p>
-          </div>
-          <div class="info-banner warn">
-            <i class="ti ti-elevator"></i>
-            <p><strong>Ascenseur hors service — Quai B</strong><br>Utiliser l'ascenseur de secours central.</p>
-          </div>
-        </div>
-        
-        <div class="section">
-          <div class="section-title">Signaler un problème sur le réseau</div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-            <button class="map-btn" style="justify-content:center; font-size:12px;" onclick="report('obstacle')"><i class="ti ti-cone"></i> Obstacle</button>
-            <button class="map-btn" style="justify-content:center; font-size:12px;" onclick="report('ascenseur')"><i class="ti ti-elevator"></i> Ascenseur HS</button>
-            <button class="map-btn" style="justify-content:center; font-size:12px;" onclick="report('chaussée')"><i class="ti ti-road"></i> Chaussée dégradée</button>
-            <button class="map-btn" style="justify-content:center; font-size:12px;" onclick="report('passage')"><i class="ti ti-traffic-lights"></i> Passage piéton</button>
+            <p><strong>Travaux de voirie</strong><br>Trottoir bloqué à 200m. Déviation PMR en place.</p>
           </div>
         </div>
       </div>
@@ -310,13 +258,156 @@
         <i class="ti ti-user-check"></i> <span id="badgeText">Affichage : Filtres PMR / Fauteuil</span>
       </div>
 
-      <div class="map-overlay-tl">
-        <button class="map-btn" onclick="showToast('Zoom avant')"><i class="ti ti-zoom-in"></i> Zoom +</button>
-        <button class="map-btn" onclick="showToast('Zoom arrière')"><i class="ti ti-zoom-out"></i> Zoom −</button>
-        <button class="map-btn" onclick="showToast('Centrage sur Montreuil')"><i class="ti ti-current-location"></i> Ma position</button>
+      <svg class="map-svg" viewBox="0 0 560 540" xmlns="http://www.w3.org/2000/svg">
+        <rect width="560" height="540" fill="#ede9df"/>
+        <rect x="40" y="40" width="480" height="440" rx="12" fill="#e2ded5" stroke="#d5cfc4"/>
+        
+        <rect x="0" y="220" width="560" height="40" fill="#cbd5e1" />
+        <rect x="240" y="0" width="45" height="540" fill="#cbd5e1" />
+        <text x="20" y="244" font-size="11" fill="#64748b" font-weight="600">Avenue de la République</text>
+
+        <polyline points="80,420 262,420 262,240 460,240" fill="none" stroke="#185FA5" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="80,420 262,420 262,240 460,240" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 5"/>
+
+        <circle cx="80" cy="420" r="12" fill="#1e293b" stroke="white" stroke-width="2"/>
+        <text x="80" y="424" text-anchor="middle" font-size="11" fill="white" font-weight="bold">D</text>
+        
+        <circle cx="460" cy="240" r="12" fill="#10b981" stroke="white" stroke-width="2"/>
+        <text x="460" y="244" text-anchor="middle" font-size="11" fill="white" font-weight="bold">A</text>
+
+        <g id="layer-pmr" class="map-layer active-layer">
+          <circle cx="262" cy="420" r="14" fill="#185FA5" opacity="0.85"/>
+          <text x="262" y="424" text-anchor="middle" font-size="12" fill="white">♿</text>
+          <circle cx="180" cy="420" r="10" fill="#10b981"/>
+          <text x="180" y="423" text-anchor="middle" font-size="9" fill="white" font-weight="bold">✓</text>
+          <rect x="135" y="440" width="110" height="18" rx="4" fill="#0c447c" opacity="0.9"/>
+          <text x="190" y="452" text-anchor="middle" font-size="9" fill="white">Rampe large conforme</text>
+        </g>
+
+        <g id="layer-visuel" class="map-layer">
+          <line x1="80" y1="410" x2="250" y2="410" stroke="#fbbf24" stroke-width="4" stroke-dasharray="2 3"/>
+          <line x1="275" y1="410" x2="275" y2="250" stroke="#fbbf24" stroke-width="4" stroke-dasharray="2 3"/>
+          <circle cx="262" cy="240" r="14" fill="#fbbf24" stroke="#d97706" stroke-width="2"/>
+          <text x="262" y="244" text-anchor="middle" font-size="12" fill="#78350f">🔔</text>
+          <rect x="210" y="200" width="110" height="18" rx="4" fill="#78350f"/>
+          <text x="265" y="212" text-anchor="middle" font-size="9" fill="white">Feu avec balise audio</text>
+        </g>
+
+        <g id="layer-senior" class="map-layer">
+          <circle cx="150" cy="420" r="12" fill="#059669"/>
+          <text x="150" y="424" text-anchor="middle" font-size="11" fill="white">🪑</text>
+          <circle cx="340" cy="240" r="12" fill="#059669"/>
+          <text x="340" y="244" text-anchor="middle" font-size="11" fill="white">🪑</text>
+          <rect x="110" y="440" width="80" height="18" rx="4" fill="#065f46"/>
+          <text x="150" y="452" text-anchor="middle" font-size="9" fill="white">Zone de repos</text>
+        </g>
+
+        <g id="layer-cognitif" class="map-layer">
+          <rect x="290" y="300" width="100" height="35" rx="6" fill="#ec4899"/>
+          <text x="340" y="322" text-anchor="middle" font-size="11" fill="white" font-weight="bold">🏪 Grand Magasin</text>
+          <path d="M 262,350 L 290,320 L 290,350 Z" fill="#ec4899" opacity="0.5"/>
+          
+          <circle cx="262" cy="360" r="16" fill="#ea580c"/>
+          <text x="262" y="365" text-anchor="middle" font-size="14" fill="white">👉</text>
+          <text x="210" y="382" font-size="10" fill="#ea580c" font-weight="bold">Tourner après le magasin</text>
+        </g>
+
+      </svg>
+
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background: #185FA5;"></div> Trajet sécurisé</div>
+        <div class="legend-item"><div class="legend-dot" style="background: #10b981;"></div> Éléments d'accessibilité</div>
       </div>
 
-      <div class="map-overlay-tr">
-        <button class="map-btn alert" id="alert-btn" onclick="showTab('alerts', document.querySelectorAll('.tab')[2])"><i class="ti ti-alert-triangle"></i> 2 alertes détectées</button>
-        <button class="map-btn" onclick="recalc()"><i class="ti ti-refresh"></i> Recalculer</button>
+      <div class="summary-bar">
+        <div class="summary-stats">
+          <div class="summary-item"><div class="summary-val">12 min</div><div class="summary-lbl">Temps</div></div>
+          <div class="summary-item"><div class="summary-val">650 m</div><div class="summary-lbl">Distance</div></div>
+        </div>
+        <button class="map-btn alert"><i class="ti ti-shield-check"></i> Adapté à votre profil</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast">Filtres de carte mis à jour !</div>
+
+<script>
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.transform = 'translateX(-50%) translateY(0)';
+  setTimeout(() => { t.style.transform = 'translateX(-50%) translateY(120px)'; }, 2000);
+}
+
+function showTab(name, el) {
+  ['itinerary','options','alerts'].forEach(n => {
+    document.getElementById('tab-' + n).style.display = 'none';
+  });
+  document.getElementById('tab-' + name).style.display = 'block';
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function toggleSwitch(row) {
+  const sw = row.querySelector('.toggle-switch');
+  sw.classList.toggle('on');
+  sw.classList.toggle('off');
+  showToast(sw.classList.contains('on') ? '✓ Option activée' : '○ Option désactivée');
+}
+
+// ====================================================
+// LOGIQUE D'INTERACTION DU MENU AVEC LA CARTE SVG
+// ====================================================
+function selectProfile(card) {
+  // 1. Désélectionner toutes les fiches d'options et griser leurs logos
+  document.querySelectorAll('.option-card').forEach(c => {
+    c.classList.remove('selected');
+    const img = c.querySelector('.app-logo-img');
+    if (img) {
+      img.style.filter = 'grayscale(100%)';
+      img.style.opacity = '0.5';
+    }
+  });
+  
+  // 2. Activer visuellement l'option sélectionnée (Couleur)
+  card.classList.add('selected');
+  const activeImg = card.querySelector('.app-logo-img');
+  if (activeImg) {
+    activeImg.style.filter = 'none';
+    activeImg.style.opacity = '1';
+  }
+  
+  // 3. Masquer TOUTES les couches SVG de la carte
+  document.querySelectorAll('.map-layer').forEach(layer => {
+    layer.classList.remove('active-layer');
+  });
+  
+  // 4. Activer UNIQUEMENT la couche SVG correspondant au profil choisi
+  const profileType = card.dataset.p; // Récupère 'pmr', 'visuel', 'senior' ou 'cognitif'
+  const targetLayer = document.getElementById('layer-' + profileType);
+  if (targetLayer) {
+    targetLayer.classList.add('active-layer');
+  }
+
+  // 5. Mettre à jour le badge d'information au-dessus de la carte
+  const labels = {
+    pmr: 'Filtres PMR / Fauteuil : Évitement des marches',
+    visuel: 'Filtres Malvoyant : Bandes de guidage & signaux audio',
+    senior: 'Filtres Sénior : Repérage des bancs de repos',
+    cognitif: 'Filtres Simplifiés : Points de repères imagés et flèches'
+  };
+  document.getElementById('badgeText').textContent = 'Affichage : ' + labels[profileType];
+  
+  showToast('Carte mise à jour : mode ' + profileType.toUpperCase());
+}
+
+function toggleVoice(btn) {
+  btn.classList.toggle('active');
+}
+function startNav() {
+  showToast('🚀 Recherche du meilleur trajet IA...');
+}
+</script>
+</body>
+</html>
