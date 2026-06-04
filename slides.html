@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Présentation Project Canva - CRTL + ALT + Elite</title>
+    <title>Script Oral - CRTL + ALT + Elite</title>
     <style>
         :root {
-            --bg-dark: #0f172a;
-            --bg-card: #1e293b;
-            --text-main: #f8fafc;
+            --bg-dark: #0b0f19;
+            --bg-card: #131a26;
+            --text-main: #f1f5f9;
             --text-muted: #94a3b8;
-            --electric-blue: #3b82f6;
-            --accent-orange: #f97316;
-            --white: #ffffff;
-            --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            
+            /* Couleurs par présentateur pour se repérer */
+            --p1-color: #3b82f6; /* Bleu */
+            --p2-color: #10b981; /* Vert */
+            --p3-color: #f59e0b; /* Orange */
+            
+            --border-rgba: rgba(255, 255, 255, 0.08);
         }
 
         * {
@@ -23,455 +26,246 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-main);
-            overflow: hidden;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* --- CONTENEUR DES SLIDES --- */
-        .presentation-container {
-            position: relative;
-            width: 90vw;
-            max-width: 1100px;
-            height: 75vh;
-            max-height: 650px;
-            perspective: 1000px;
-        }
-
-        .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg-card);
-            border-radius: 16px;
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            opacity: 0;
-            visibility: hidden;
-            transform: scale(0.95) translateZ(-50px);
-            transition: var(--transition);
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        /* Slide Active */
-        .slide.active {
-            opacity: 1;
-            visibility: visible;
-            transform: scale(1) translateZ(0);
-            z-index: 10;
-        }
-
-        /* --- STRUCTURE INTERNE DES SLIDES --- */
-        .slide-header {
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
-
-        .canva-tag {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--electric-blue);
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .canva-tag.orange {
-            color: var(--accent-orange);
-        }
-
-        .slide h2 {
-            font-size: 1.8rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-        }
-
-        .slide-question {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            font-style: italic;
-            margin-top: 5px;
-        }
-
-        .slide-body {
-            flex: 1;
-            display: flex;
-            gap: 40px;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .slide-text {
-            flex: 1.2;
-            font-size: 1.1rem;
             line-height: 1.6;
-            color: #cbd5e1;
-            text-align: justify;
+            padding: 40px 20px;
         }
 
-        .slide-text p {
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        /* En-tête */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-rgba);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .meta-info strong {
+            color: var(--text-main);
+        }
+
+        /* Liens de navigation rapides */
+        .quick-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .nav-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-rgba);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            border-color: #ffffff;
+            background: #1e293b;
+        }
+
+        /* Cartes de sections de parole */
+        .speech-block {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-rgba);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            scroll-margin-top: 30px;
+        }
+
+        /* Variations de bordures selon le présentateur */
+        .p1 { border-left: 5px solid var(--p1-color); }
+        .p2 { border-left: 5px solid var(--p2-color); }
+        .p3 { border-left: 5px solid var(--p3-color); }
+
+        .speaker-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             margin-bottom: 15px;
         }
 
-        .slide-text ul {
-            list-style-type: square;
+        .p1 .speaker-badge { background-color: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+        .p2 .speaker-badge { background-color: rgba(16, 185, 129, 0.15); color: #34d399; }
+        .p3 .speaker-badge { background-color: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .speech-text {
+            font-size: 1.15rem;
+            color: #e2e8f0;
+            text-align: justify;
+        }
+
+        .speech-text p {
+            margin-bottom: 12px;
+        }
+
+        .speech-text ul {
             margin-left: 20px;
+            margin-bottom: 12px;
+            list-style-type: circle;
         }
 
-        .slide-text li {
-            margin-bottom: 10px;
+        .speech-text li {
+            margin-bottom: 6px;
         }
 
-        .slide-image {
-            flex: 0.8;
-            height: 100%;
-            max-height: 320px;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-
-        .slide-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .slide-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            border-top: 1px solid rgba(255,255,255,0.05);
-            padding-top: 15px;
-        }
-
-        /* --- DIAPOSITIVE DE TITRE (SPECIFIQUE) --- */
-        .slide-title-layout {
-            justify-content: center;
-            text-align: center;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-        }
-
-        .slide-title-layout h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin: 20px 0;
-            color: var(--white);
-            line-height: 1.3;
-        }
-
-        .meta-grid {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 40px;
-            padding: 20px;
+        /* Conseils de timing et de posture */
+        .cue-note {
             background: rgba(255,255,255,0.02);
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        /* --- CONTRÔLES ET NAVIGATION --- */
-        .controls {
-            margin-top: 25px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            z-index: 100;
-        }
-
-        .btn {
-            background-color: var(--bg-card);
-            color: var(--text-main);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn:hover {
-            background-color: var(--electric-blue);
-            color: var(--white);
-            border-color: var(--electric-blue);
-            transform: translateY(-2px);
-        }
-
-        .progress-dots {
-            display: flex;
-            gap: 8px;
-        }
-
-        .dot {
-            width: 10px;
-            height: 10px;
-            background-color: rgba(255,255,255,0.2);
-            border-radius: 50%;
-            transition: var(--transition);
-        }
-
-        .dot.active {
-            background-color: var(--electric-blue);
-            width: 24px;
-            border-radius: 10px;
-        }
-
-        /* Highlight Box pour la proposition de valeur */
-        .highlight-box {
-            background: rgba(249, 115, 22, 0.1);
-            border-left: 4px solid var(--accent-orange);
-            padding: 15px;
-            border-radius: 0 8px 8px 0;
-            font-size: 0.95rem;
-            margin-top: 15px;
-        }
-
-        /* Bouton Retour au site */
-        .back-home {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            text-decoration: none;
-            color: var(--text-muted);
+            border: 1px dashed var(--border-rgba);
+            padding: 10px 15px;
+            border-radius: 6px;
             font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: var(--transition);
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-style: italic;
         }
 
-        .back-home:hover {
-            color: var(--white);
+        /* Pied de page */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
         }
 
-        @media (max-width: 768px) {
-            .slide-body { flex-direction: column; }
-            .slide-image { display: none; }
-            .meta-grid { flex-direction: column; gap: 10px; }
-            .slide h2 { font-size: 1.4rem; }
-            .slide-title-layout h1 { font-size: 1.8rem; }
+        @media (max-width: 600px) {
+            .meta-info { flex-direction: column; gap: 5px; }
+            body { padding: 20px 10px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Lien de retour vers l'index -->
-    <a href="index.html" class="back-home">← Retour au site web</a>
+    <div class="container">
 
-    <div class="presentation-container">
-
-        <!-- SLIDE 1 : ACCUEIL / PROJECT DEFINITION -->
-        <div class="slide slide-title-layout active">
-            <div>
-                <div class="canva-tag">Project Definition</div>
-                <h1>Comment l'IA pourrait-elle améliorer nos déplacements de tous les jours ?</h1>
-            </div>
-            <div class="meta-grid">
-                <div>Groupe : <strong style="color: var(--electric-blue);">CRTL + ALT + Elite</strong></div>
-                <div>Date : <strong>04/06/2026</strong></div>
+        <!-- EN-TÊTE DE LA FICHE -->
+        <header>
+            <h1>Script d'Exposé Oral (5 Minutes max)</h1>
+            <div class="meta-info">
+                <div>Équipe : <strong>CRTL + ALT + Elite</strong></div>
                 <div>Classe : <strong>2MTNE</strong></div>
+                <div>Date : <strong>04/06/2026</strong></div>
             </div>
-            <div class="slide-footer">
-                <span>Contrôles : Boutons ou Flèches du clavier ← / →</span>
-                <span>Slide 1/6</span>
+        </header>
+
+        <!-- NAVIGATION RAPIDE PAR PRÉSENTATEUR -->
+        <div class="quick-nav">
+            <a href="#sec-intro" class="nav-btn" style="border-color: var(--p1-color)">Présentateur 1 (Intro & Constat)</a>
+            <a href="#sec-solution" class="nav-btn" style="border-color: var(--p2-color)">Présentateur 2 (Solution & Technique)</a>
+            <a href="#sec-fin" class="nav-btn" style="border-color: var(--p3-color)">Présentateur 3 (Écosystème & Conclusion)</a>
+        </div>
+
+        <!-- BLOC 1 : INTRODUCTION -->
+        <div id="sec-intro" class="speech-block p1">
+            <div class="speaker-badge">Présentateur 1</div>
+            <div class="section-title">Introduction — Durée estimée : ~45s</div>
+            <div class="cue-note">Conseil : Parlez calmement, captez le regard du jury dès la première phrase.</div>
+            <div class="speech-text">
+                <p>"Bonjour à tous. Aujourd’hui, nous passons en moyenne plusieurs dizaines de minutes, parfois des heures, bloqués dans les transports pour aller travailler, étudier ou rentrer chez nous.</p>
+                <p>Face à cette perte de temps et à la saturation de nos villes, une question s'impose : comment l'Intelligence Artificielle peut-elle transformer et améliorer nos déplacements de tous les jours ?</p>
+                <p>Notre groupe, <strong>CRTL + ALT + Elite</strong>, s'est penché sur ce problème en s'appuyant sur notre Project Canva. L'objectif n'est pas simplement de concevoir une application de navigation de plus, mais de repenser la restructuration des flux urbains grâce à l'analyse prédictive."</p>
             </div>
         </div>
 
-        <!-- SLIDE 2 : IDENTIFIED NEEDS -->
-        <div class="slide">
-            <div class="slide-header">
-                <div class="canva-tag">Identified Needs</div>
-                <h2>1. Le Besoin Identifié</h2>
-                <div class="slide-question">What need does your project address?</div>
-            </div>
-            <div class="slide-body">
-                <div class="slide-text">
-                    <p>L'objectif majeur de ce projet est d'apporter une réflexion approfondie sur les différentes problématiques, contraintes et ralentissements que nous subissons au quotidien lors de nos trajets urbains.</p>
-                    <p>Nous étudions comment l'intégration ciblée de l'intelligence artificielle peut offrir des solutions technologiques concrètes pour optimiser, fluidifier et restructurer ces déplacements de tous les jours.</p>
-                </div>
-                <div class="slide-image">
-                    <img src="https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=500&q=80" alt="Embouteillages urbains">
-                </div>
-            </div>
-            <div class="slide-footer">
-                <span>Équipe CRTL + ALT + Elite</span>
-                <span>Slide 2/6</span>
+        <!-- BLOC 2 : CONSTAT & CIBLE -->
+        <div class="speech-block p1">
+            <div class="speaker-badge">Présentateur 1</div>
+            <div class="section-title">Partie 1 : Le Constat et le Public Visé — Durée estimée : ~1min</div>
+            <div class="cue-note">Conseil : Marquez bien les pauses entre chaque profil d'usager listé.</div>
+            <div class="speech-text">
+                <p>"Le premier constat que nous avons fait concerne la frustration quotidienne. Les ralentissements, les pannes techniques et les embouteillages ne sont pas seulement agaçants, ils ont aussi un coût écologique et économique majeur.</p>
+                <p>Notre projet ne laisse personne de côté. Il est pensé pour une cible globale :</p>
+                <ul>
+                    <li>D'abord, les automobilistes, qui cherchent à éviter de stagner dans le trafic.</li>
+                    <li>Ensuite, les usagers des transports en commun, qui ont besoin d'une fiabilité absolue sur les horaires et les correspondances.</li>
+                    <li>Enfin, les piétons et les adeptes des mobilités douces, comme les cyclistes, pour qui la sécurité et l'optimisation des trajets sont cruciales.</li>
+                </ul>
+                <p>L'enjeu est de permettre à chacun de ces profils de gagner du temps tout en rendant la route plus fluide et plus sûre."</p>
             </div>
         </div>
 
-        <!-- SLIDE 3 : TARGET - END USERS -->
-        <div class="slide">
-            <div class="slide-header">
-                <div class="canva-tag">Target - End Users</div>
-                <h2>2. Public Cible & Utilisateurs</h2>
-                <div class="slide-question">Who is this project intended for? Who is affected by the identified need?</div>
-            </div>
-            <div class="slide-body">
-                <div class="slide-text">
-                    <p>Ce projet s'adresse globalement à l'ensemble des citoyens amenés à se déplacer quotidiennement pour leurs activités, qu'il s'agisse de se rendre à l'école, sur leur lieu de travail ou pour leurs loisirs.</p>
-                    <p>Notre solution englobe et protège les quatre profils clés de la route :</p>
-                    <ul>
-                        <li><strong>Conducteurs :</strong> Évitement des congestions routières.</li>
-                        <li><strong>Usagers des transports :</strong> Information en direct sur les réseaux.</li>
-                        <li><strong>Cyclistes & Piétons :</strong> Sécurisation des parcours et gain de temps.</li>
-                    </ul>
-                </div>
-                <div class="slide-image">
-                    <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=500&q=80" alt="Transports publics">
-                </div>
-            </div>
-            <div class="slide-footer">
-                <span>Équipe CRTL + ALT + Elite</span>
-                <span>Slide 3/6</span>
+        <!-- BLOC 3 : LA SOLUTION & TECHNIQUE -->
+        <div id="sec-solution" class="speech-block p2">
+            <div class="speaker-badge">Présentateur 2</div>
+            <div class="section-title">Partie 2 : La Solution et la Technologie — Durée estimée : ~1min 30s</div>
+            <div class="cue-note">Conseil : Appuyez bien sur le mot "Anticipation", c'est votre valeur ajoutée.</div>
+            <div class="speech-text">
+                <p>"Alors, quelle est notre proposition de valeur et en quoi se distingue-t-elle de ce qui existe déjà ? Aujourd'hui, la plupart des applications GPS se contentent de constater les bouchons une fois qu'ils sont formés. Notre solution, elle, repose sur l'anticipation.</p>
+                <p>Grâce à l'intelligence artificielle, notre système croise instantanément deux sources de données massives : la géolocalisation par satellite (les signaux GPS) et les flux d’informations routières mis à jour en direct par les municipalités.</p>
+                <p>En analysant ces volumes de données, l'algorithme est capable de prédire l’apparition d'un point de saturation plusieurs minutes avant qu'il ne se matérialise. Il peut ainsi disperser les flottes de véhicules sur des itinéraires alternatifs optimisés.</p>
+                <p>Le rôle de l'IA est donc d'agir comme un régulateur invisible pour lisser les retards, optimiser les trajets de bus et réduire drastiquement la pollution liée à l'attente dans les congestions."</p>
             </div>
         </div>
 
-        <!-- SLIDE 4 : UNIQUE VALUE PROPOSITION -->
-        <div class="slide">
-            <div class="slide-header">
-                <div class="canva-tag orange">Unique Value Proposition</div>
-                <h2>3. Notre Proposition de Valeur Unique</h2>
-                <div class="slide-question">How does it differ from what exists today? How does it address the need?</div>
-            </div>
-            <div class="slide-body">
-                <div class="slide-text">
-                    <p>Notre application exploite la puissance de l'IA pour traiter les conditions de circulation en temps réel. Elle calcule instantanément les meilleurs itinéraires alternatifs, disperse les goulots d'étranglement et anticipe les retards sur les réseaux de transit.</p>
-                    <div class="highlight-box">
-                        <strong>Notre Facteur Différenciant :</strong> Contrairement aux GPS classiques qui se contentent de constater le trafic existant, notre système utilise l'<strong>analyse prédictive</strong> pour anticiper les problèmes avant qu'ils ne surviennent. Cela garantit un gain de temps, une sécurité accrue et une baisse de la pollution.
-                    </div>
-                </div>
-            </div>
-            <div class="slide-footer">
-                <span>Équipe CRTL + ALT + Elite</span>
-                <span>Slide 4/6</span>
+        <!-- BLOC 4 : ECOSYSTÈME & LIMITES -->
+        <div id="sec-fin" class="speech-block p3">
+            <div class="speaker-badge">Présentateur 3</div>
+            <div class="section-title">Partie 3 : Acteurs, Obstacles et Démarche Éthique — Durée estimée : ~1min</div>
+            <div class="cue-note">Conseil : Prenez un ton sérieux et rassurant sur la partie protection des données.</div>
+            <div class="speech-text">
+                <p>"Un projet d'une telle envergure ne peut pas se faire de manière isolée. Il demande la création d’un véritable écosystème avec plusieurs parties prenantes clés. Nous avons besoin d'ingénieurs et de spécialistes en IA pour l'architecture technique, des entreprises de transport pour partager les données de traçabilité de leurs flottes, et enfin des municipalités pour valider l'intégration dans la ville.</p>
+                <p>Cependant, nous faisons face à un obstacle majeur : la fiabilité de l'accès à la donnée. Si les données reçues en direct sont incomplètes ou instables, les prédictions de l'IA perdront en efficacité. C’est le défi technique principal que nous devons relever.</p>
+                <p>Enfin, je souhaite insister sur notre ligne rouge éthique : le respect absolu de la vie privée. Dans notre projet, la sécurité des serveurs est primordiale. Les données de positionnement et les profils des utilisateurs seront hautement sécurisés et ne seront jamais partagés sans leur accord explicite."</p>
             </div>
         </div>
 
-        <!-- SLIDE 5 : STAKEHOLDERS & ROLE OF AI -->
-        <div class="slide">
-            <div class="slide-header">
-                <div class="canva-tag">Stakeholders & Technology</div>
-                <h2>4. Acteurs & Rôle de l'IA</h2>
-                <div class="slide-question">Who will you need? How do you ensure responsible use of AI?</div>
-            </div>
-            <div class="slide-body">
-                <div class="slide-text">
-                    <p>L'intelligence artificielle agit comme le cerveau central en corrélant les données de positionnement <strong>GPS</strong> et les flux d'informations du trafic mis à jour en direct.</p>
-                    <p>Pour matérialiser cet écosystème, nous collaborons avec :</p>
-                    <ul>
-                        <li><strong>Les experts en IA :</strong> Pour concevoir et entraîner les modèles.</li>
-                        <li><strong>Les entreprises de transport :</strong> Pour partager les traceurs de flottes.</li>
-                        <li><strong>L'État et les villes :</strong> Pour encadrer légalement le déploiement.</li>
-                    </ul>
-                </div>
-                <div class="slide-image">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=500&q=80" alt="Data et IA">
-                </div>
-            </div>
-            <div class="slide-footer">
-                <span>Équipe CRTL + ALT + Elite</span>
-                <span>Slide 5/6</span>
-            </div>
-        </div>
-
-        <!-- SLIDE 6 : BARRIERS & ETHICS -->
-        <div class="slide">
-            <div class="slide-header">
-                <div class="canva-tag orange">Barriers & Ethics</div>
-                <h2>5. Contraintes, Obstacles & Éthique</h2>
-                <div class="slide-question">What constraints do you anticipate? Do you identify ethical limits?</div>
-            </div>
-            <div class="slide-body">
-                <div class="slide-text">
-                    <p><strong>L'accès à des données fiables :</strong> C'est notre principal obstacle technique. La viabilité et la précision de l'IA dépendent entièrement de la stabilité des flux de données reçus en direct.</p>
-                    <p><strong>L'Engagement Éthique Absolu :</strong> La protection de la vie privée est au centre de notre architecture. <strong>Les données de positionnement et informations personnelles des utilisateurs seront hautement sécurisées et ne seront jamais partagées sans leur consentement et accord explicite.</strong></p>
-                </div>
-            </div>
-            <div class="slide-footer">
-                <span>Fin de la présentation - Questions & Réponses</span>
-                <span>Slide 6/6</span>
+        <!-- BLOC 5 : CONCLUSION -->
+        <div class="speech-block p3">
+            <div class="speaker-badge">Présentateur 3</div>
+            <div class="section-title">Conclusion — Durée estimée : ~45s</div>
+            <div class="cue-note">Conseil : Concluez avec assurance, souriez et ouvrez le dialogue avec le jury.</div>
+            <div class="speech-text">
+                <p>"Pour conclure, notre projet propose d'utiliser l'innovation technologique non pas comme un gadget, mais comme un levier pour rendre nos villes plus respirables, plus efficaces et plus humaines.</p>
+                <p>En anticipant les flux plutôt qu'en subissant les blocages, nous redonnons le contrôle de leur temps aux usagers, tout en agissant pour l'environnement.</p>
+                <p>Nous vous remercions pour votre attention, et nous sommes désormais à votre disposition pour répondre à vos questions."</p>
             </div>
         </div>
 
     </div>
 
-    <!-- BOUTONS DE CONTRÔLE -->
-    <div class="controls">
-        <button class="btn" id="prevBtn">← Précédent</button>
-        <div class="progress-dots" id="dotContainer"></div>
-        <button class="btn" id="nextBtn">Suivant →</button>
-    </div>
+    <footer>
+        Support de soutenance oral | Équipe CRTL + ALT + Elite | 2MTNE &copy; 2026
+    </footer>
 
-    <script>
-        const slides = document.querySelectorAll('.slide');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const dotContainer = document.getElementById('dotContainer');
-        let currentSlide = 0;
-
-        // Générer les points de progression
-        slides.forEach((_, index) => {
-            const dot = document.createElement('div');
-            dot.classList.add('dot');
-            if(index === 0) dot.classList.add('active');
-            dotContainer.appendChild(dot);
-        });
-
-        const dots = document.querySelectorAll('.dot');
-
-        function updateSlides() {
-            slides.forEach((slide, index) => {
-                slide.classList.remove('active');
-                dots[index].classList.remove('active');
-            });
-            slides[currentSlide].classList.add('active');
-            dots[currentSlide].classList.add('active');
-        }
-
-        nextBtn.addEventListener('click', () => {
-            if (currentSlide < slides.length - 1) {
-                currentSlide++;
-                updateSlides();
-            }
-        });
-
-        prevBtn.addEventListener('click', () => {
-            if (currentSlide > 0) {
-                currentSlide--;
-                updateSlides();
-            }
-        });
-
-        // Contrôle avec les flèches du clavier
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' && currentSlide < slides.length - 1) {
-                currentSlide++;
-                updateSlides();
-            } else if (e.key === 'ArrowLeft' && currentSlide > 0) {
-                currentSlide--;
-                updateSlides();
-            }
-        });
-    </script>
 </body>
 </html>
