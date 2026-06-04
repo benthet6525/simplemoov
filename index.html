@@ -1,9 +1,210 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>Mon Premier Site</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet CRTL + ALT + Elite - IA & Mobilité Urbaine</title>
+    <style>
+        :root {
+            --primary: #1a5276;
+            --primary-light: #2980b9;
+            --secondary: #e67e22;
+            --dark: #2c3e50;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --border-radius: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f0f3f4;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .meta-info {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary);
+        }
+
+        .card h2 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #eaeded;
+            padding-bottom: 8px;
+        }
+
+        .card h2 .icon {
+            margin-right: 10px;
+            font-size: 1.6rem;
+        }
+
+        .card-highlight {
+            border-left-color: var(--secondary);
+        }
+
+        .card-highlight h2 {
+            color: var(--secondary);
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul {
+            list-style-position: inside;
+            margin-left: 10px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .badge {
+            background-color: #e8f4f8;
+            color: var(--primary);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: var(--dark);
+            color: var(--white);
+            font-size: 0.9rem;
+            margin-top: 40px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello World ! Mon site est en ligne grâce à GitHub !</h1>
+
+    <header>
+        <h1>Comment l'IA pourrait-elle améliorer nos déplacements de tous les jours ?</h1>
+        <p>Projet d'Innovation & Technologie</p>
+        <div class="meta-info">
+            <strong>Groupe :</strong> CRTL + ALT + Elite &nbsp;|&nbsp; <strong>Date :</strong> 04/06/2026 &nbsp;|&nbsp; <strong>Classe :</strong> 2MTNE
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div class="card">
+            <h2><span class="icon">🔍</span> Besoin Identifié (Identified Needs)</h2>
+            <p>Notre projet répond à une problématique simple mais essentielle : <strong>comment améliorer nos déplacements de tous les jours ?</strong> Il s'agit de trouver des solutions face aux différents problèmes et imprévus que l'on rencontre lors de nos trajets quotidiens, et de définir la manière dont l'Intelligence Artificielle peut nous aider à les résoudre.</p>
+        </div>
+
+        <div class="card card-highlight">
+            <h2><span class="icon">💡</span> Proposition de Valeur Unique (Unique Value Proposition)</h2>
+            <p>Notre projet utilise l'<strong>IA pour améliorer les déplacements quotidiens</strong> grâce à une analyse avancée du trafic en temps réel.</p>
+            <p>L'IA va permettre de :</p>
+            <ul>
+                <li>Proposer les meilleurs itinéraires possibles instantanément.</li>
+                <li>Éviter efficacement les embouteillages.</li>
+                <li>Anticiper, former et éviter les retards dans les transports en commun.</li>
+            </ul>
+            <p><strong>Notre différence :</strong> Contrairement aux solutions actuelles, notre application anticipe les problèmes avant qu'ils ne surviennent. Elle offre des recommandations personnalisées qui permettent de gagner du temps, d'améliorer la sécurité et de diminuer la pollution.</p>
+        </div>
+
+        <div class="card">
+            <h2><span class="icon">🎯</span> Cible & Utilisateurs Finaux (Target - End Users)</h2>
+            <p>Ce projet est conçu pour <strong>toutes les personnes qui se déplacent chaque jour</strong>, que ce soit pour aller à l'école, au travail, ou pour leurs activités personnelles. Notre solution s'adresse directement aux :</p>
+            <div>
+                <span class="badge">Conducteurs</span>
+                <span class="badge">Usagers des transports en commun</span>
+                <span class="badge">Cyclistes</span>
+                <span class="badge">Piétons</span>
+            </div>
+            <p style="margin-top: 15px;">L'IA les aidera au quotidien à gagner du temps, éviter le stress des bouchons et rendre leurs déplacements plus sûrs et plus efficaces.</p>
+        </div>
+
+        <div class="card">
+            <h2><span class="icon">🤖</span> Rôle de l'IA dans le projet</h2>
+            <p>Pour fonctionner, l'application aura besoin de croiser plusieurs types de technologies et de données : des <strong>données d'IA, des données de géolocalisation GPS, ainsi que des informations de trafic en temps réel</strong>.</p>
+            <p>Grâce à cela, l'IA analyse les flux pour proposer les meilleurs trajets et faire gagner du temps. De plus, pour garantir une utilisation responsable, les informations et données des utilisateurs seront hautement sécurisées.</p>
+        </div>
+
+        <div class="card">
+            <h2><span class="icon">🤝</span> Parties Prenantes (Stakeholders)</h2>
+            <p>Pour développer ce système, nous devrons nous entourer de différents acteurs clés :</p>
+            <ul>
+                <li>Des <strong>spécialistes en IA</strong> pour bâtir l'architecture algorithmique.</li>
+                <li>Des <strong>entreprises de transport</strong> pour partager les données de trafic.</li>
+                <li>Le <strong>gouvernement et les villes</strong> pour encadrer le projet, obtenir les autorisations et valider la sécurité du réseau.</li>
+            </ul>
+        </div>
+
+        <div class="card card-highlight">
+            <h2><span class="icon">⚠️</span> Contraintes & Barrières Éthiques (Barriers)</h2>
+            <p>Nous avons identifié des obstacles majeurs pour la mise en œuvre :</p>
+            <ul>
+                <li>L'accès à des <strong>données fiables</strong> et stables en temps réel est l'un des principaux obstacles techniques de ce projet.</li>
+                <li><strong>Sécurité & Éthique :</strong> Les utilisateurs ne seront pas tracés sans leur accord. Un point d'honneur est mis sur le fait que leurs données personnelles et de déplacement doivent impérativement être protégées.</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 - Projet de Présentation IA & Mobilité | Équipe CRTL + ALT + Elite | Classe 2MTNE</p>
+    </footer>
+
 </body>
 </html>
