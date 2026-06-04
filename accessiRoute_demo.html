@@ -1,0 +1,630 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --blue-50: #E6F1FB; --blue-100: #B5D4F4; --blue-600: #185FA5; --blue-800: #0C447C;
+  --teal-50: #E1F5EE; --teal-100: #9FE1CB; --teal-600: #0F6E56; --teal-800: #085041;
+  --amber-50: #FAEEDA; --amber-100: #FAC775; --amber-600: #854F0B; --amber-800: #633806;
+  --green-50: #EAF3DE; --green-600: #3B6D11; --green-800: #27500A;
+  --coral-50: #FAECE7; --coral-600: #993C1D;
+  --purple-50: #EEEDFE; --purple-600: #534AB7; --purple-800: #3C3489;
+}
+body { font-family: var(--font-sans, system-ui, sans-serif); background: transparent; }
+
+.app-shell { display: flex; flex-direction: column; gap: 0; min-height: 680px; }
+
+.top-bar {
+  background: var(--blue-800);
+  padding: 14px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+}
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-icon { width: 36px; height: 36px; background: white; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+.logo-text { color: white; font-size: 18px; font-weight: 500; letter-spacing: -0.3px; }
+.logo-sub { color: rgba(255,255,255,0.6); font-size: 11px; font-weight: 400; display: block; }
+.top-right { display: flex; gap: 8px; }
+.top-btn {
+  background: rgba(255,255,255,0.15); border: 0.5px solid rgba(255,255,255,0.3);
+  color: white; border-radius: var(--border-radius-md); padding: 6px 12px;
+  font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px;
+  transition: background 0.15s;
+}
+.top-btn:hover { background: rgba(255,255,255,0.25); }
+.top-btn.active { background: white; color: var(--blue-800); }
+
+.main-content { display: grid; grid-template-columns: 340px 1fr; flex: 1; min-height: 590px; }
+
+.sidebar {
+  background: var(--color-background-primary);
+  border-right: 0.5px solid var(--color-border-tertiary);
+  display: flex; flex-direction: column; overflow-y: auto;
+}
+
+.profile-bar {
+  padding: 14px 16px;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+  display: flex; align-items: center; gap: 10px;
+}
+.profile-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+.pill {
+  font-size: 11px; padding: 3px 10px; border-radius: 20px; cursor: pointer;
+  border: 0.5px solid transparent; transition: all 0.15s; font-weight: 500;
+}
+.pill.blue { background: var(--blue-50); color: var(--blue-800); border-color: var(--blue-100); }
+.pill.teal { background: var(--teal-50); color: var(--teal-800); border-color: var(--teal-100); }
+.pill.amber { background: var(--amber-50); color: var(--amber-600); border-color: var(--amber-100); }
+.pill.active-pill { transform: scale(1.05); box-shadow: 0 0 0 2px var(--blue-600); }
+.profile-label { font-size: 12px; color: var(--color-text-secondary); white-space: nowrap; }
+
+.section { padding: 14px 16px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.section-title { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; }
+
+.search-box {
+  position: relative; margin-bottom: 10px;
+}
+.search-box input {
+  width: 100%; padding: 9px 12px 9px 34px; font-size: 14px;
+  border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md);
+  background: var(--color-background-secondary);
+}
+.search-box .ti { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--color-text-secondary); font-size: 16px; }
+
+.route-steps { display: flex; flex-direction: column; gap: 0; }
+.step-item {
+  display: flex; align-items: flex-start; gap: 10px; padding: 10px 0;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+  cursor: pointer; transition: background 0.1s; border-radius: var(--border-radius-md);
+  padding: 8px;
+}
+.step-item:hover { background: var(--color-background-secondary); }
+.step-icon {
+  width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 16px;
+}
+.step-icon.walk { background: var(--teal-50); color: var(--teal-600); }
+.step-icon.metro { background: var(--blue-50); color: var(--blue-600); }
+.step-icon.elevator { background: var(--amber-50); color: var(--amber-600); }
+.step-icon.bus { background: var(--purple-50); color: var(--purple-600); }
+.step-icon.warn { background: var(--coral-50); color: var(--coral-600); }
+.step-icon.arrive { background: var(--green-50); color: var(--green-600); }
+.step-info { flex: 1; }
+.step-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); line-height: 1.3; }
+.step-detail { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; }
+.step-badge {
+  font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-left: 4px;
+  font-weight: 500; display: inline-block;
+}
+.badge-ok { background: var(--green-50); color: var(--green-600); }
+.badge-warn { background: var(--amber-50); color: var(--amber-600); }
+.badge-ko { background: #FCEBEB; color: #A32D2D; }
+
+.options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.option-card {
+  padding: 10px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary);
+  cursor: pointer; transition: all 0.15s; display: flex; flex-direction: column; gap: 4px;
+  background: var(--color-background-primary);
+}
+.option-card:hover { border-color: var(--color-border-secondary); background: var(--color-background-secondary); }
+.option-card.selected { border: 2px solid var(--blue-600); background: var(--blue-50); }
+.option-card .ti { font-size: 18px; }
+.option-label { font-size: 12px; font-weight: 500; color: var(--color-text-primary); }
+.option-sub { font-size: 11px; color: var(--color-text-secondary); }
+
+.access-toggles { display: flex; flex-direction: column; gap: 8px; }
+.toggle-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 10px; border-radius: var(--border-radius-md);
+  border: 0.5px solid var(--color-border-tertiary); cursor: pointer;
+  transition: background 0.1s;
+}
+.toggle-row:hover { background: var(--color-background-secondary); }
+.toggle-left { display: flex; align-items: center; gap: 8px; }
+.toggle-icon { font-size: 18px; width: 28px; text-align: center; }
+.toggle-label { font-size: 13px; color: var(--color-text-primary); font-weight: 500; }
+.toggle-sub { font-size: 11px; color: var(--color-text-secondary); }
+.toggle-switch {
+  width: 38px; height: 22px; border-radius: 11px; position: relative;
+  transition: background 0.2s; flex-shrink: 0;
+}
+.toggle-switch.on { background: var(--blue-600); }
+.toggle-switch.off { background: var(--color-border-secondary, #ccc); }
+.toggle-knob {
+  width: 18px; height: 18px; background: white; border-radius: 50%;
+  position: absolute; top: 2px; transition: left 0.2s;
+}
+.toggle-switch.on .toggle-knob { left: 18px; }
+.toggle-switch.off .toggle-knob { left: 2px; }
+
+.info-banner {
+  margin: 10px 0; padding: 10px 12px; border-radius: var(--border-radius-md);
+  border: 0.5px solid transparent; display: flex; align-items: flex-start; gap: 8px;
+}
+.info-banner.info { background: var(--blue-50); border-color: var(--blue-100); }
+.info-banner.warn { background: var(--amber-50); border-color: var(--amber-100); }
+.info-banner .ti { font-size: 16px; margin-top: 1px; flex-shrink: 0; }
+.info-banner.info .ti { color: var(--blue-600); }
+.info-banner.warn .ti { color: var(--amber-600); }
+.info-banner p { font-size: 12px; line-height: 1.5; }
+.info-banner.info p { color: var(--blue-800); }
+.info-banner.warn p { color: var(--amber-600); }
+
+.cta-btn {
+  width: 100%; padding: 12px; background: var(--blue-800); color: white;
+  border: none; border-radius: var(--border-radius-md); font-size: 14px; font-weight: 500;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: background 0.15s; margin-top: 4px;
+}
+.cta-btn:hover { background: var(--blue-600); }
+
+.map-area {
+  position: relative; background: #f0ede8; overflow: hidden;
+  border-radius: 0 0 var(--border-radius-lg) 0;
+}
+
+svg.map-svg { width: 100%; height: 100%; }
+.map-overlay-tl {
+  position: absolute; top: 12px; left: 12px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.map-overlay-tr {
+  position: absolute; top: 12px; right: 12px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.map-btn {
+  background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-md); padding: 8px 12px; cursor: pointer;
+  font-size: 13px; font-weight: 500; color: var(--color-text-primary);
+  display: flex; align-items: center; gap: 6px; white-space: nowrap;
+  transition: background 0.1s;
+}
+.map-btn:hover { background: var(--color-background-secondary); }
+.map-btn .ti { font-size: 16px; color: var(--blue-600); }
+.map-btn.alert { border-color: var(--amber-100); background: var(--amber-50); color: var(--amber-600); }
+.map-btn.alert .ti { color: var(--amber-600); }
+
+.legend {
+  position: absolute; bottom: 12px; left: 12px;
+  background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-md); padding: 10px 12px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--color-text-secondary); }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.leg-accessible { background: #1D9E75; }
+.leg-attention { background: #BA7517; }
+.leg-danger { background: #E24B4A; }
+.leg-line { width: 16px; height: 3px; border-radius: 2px; flex-shrink: 0; }
+.leg-route { background: #185FA5; }
+
+.voice-btn {
+  position: absolute; bottom: 16px; right: 16px;
+  width: 56px; height: 56px; border-radius: 50%; background: var(--blue-800);
+  border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  box-shadow: none; transition: transform 0.15s; color: white; font-size: 24px;
+}
+.voice-btn:hover { transform: scale(1.08); }
+.voice-btn.pulse { animation: pulse 1.5s infinite; }
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+
+.summary-bar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: var(--color-background-primary); border-top: 0.5px solid var(--color-border-tertiary);
+  padding: 10px 16px; display: flex; align-items: center; gap: 20px;
+}
+.summary-item { display: flex; flex-direction: column; align-items: center; }
+.summary-val { font-size: 18px; font-weight: 500; color: var(--color-text-primary); line-height: 1; }
+.summary-lbl { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+.summary-div { width: 0.5px; height: 32px; background: var(--color-border-tertiary); }
+
+.tab-bar { display: flex; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.tab {
+  flex: 1; padding: 10px 6px; text-align: center; font-size: 12px; font-weight: 500;
+  color: var(--color-text-secondary); cursor: pointer; border-bottom: 2px solid transparent;
+  transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 4px;
+}
+.tab.active { color: var(--blue-800); border-bottom-color: var(--blue-800); }
+.tab .ti { font-size: 15px; }
+</style>
+
+<h2 class="sr-only">AccessiRoute — Application de navigation adaptée aux personnes à mobilité réduite et malvoyantes</h2>
+
+<div class="app-shell">
+  <div class="top-bar">
+    <div class="logo">
+      <div class="logo-icon"><i class="ti ti-accessible" style="font-size:20px; color: var(--blue-800);" aria-hidden="true"></i></div>
+      <div>
+        <span class="logo-text">AccessiRoute</span>
+        <span class="logo-sub">Navigation inclusive & adaptée</span>
+      </div>
+    </div>
+    <div class="top-right">
+      <button class="top-btn" onclick="toggleVoice(this)"><i class="ti ti-volume" aria-hidden="true"></i> Guidage vocal</button>
+      <button class="top-btn active"><i class="ti ti-accessible" aria-hidden="true"></i> Mode accessible</button>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="sidebar">
+      <div class="tab-bar">
+        <div class="tab active" onclick="showTab('itinerary', this)"><i class="ti ti-route" aria-hidden="true"></i> Itinéraire</div>
+        <div class="tab" onclick="showTab('options', this)"><i class="ti ti-settings" aria-hidden="true"></i> Préférences</div>
+        <div class="tab" onclick="showTab('alerts', this)"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Alertes</div>
+      </div>
+
+      <div id="tab-itinerary">
+        <div class="section">
+          <div class="section-title">Mon trajet</div>
+          <div class="search-box">
+            <i class="ti ti-current-location" aria-hidden="true"></i>
+            <input type="text" value="Ma position actuelle" aria-label="Point de départ" />
+          </div>
+          <div class="search-box">
+            <i class="ti ti-map-pin" aria-hidden="true"></i>
+            <input type="text" value="15 rue de Rivoli, Paris 75004" aria-label="Destination" />
+          </div>
+          <div class="info-banner info">
+            <i class="ti ti-info-circle" aria-hidden="true"></i>
+            <p>Trajet calculé avec <strong>ascenseurs, rampes</strong> et <strong>passages piétons audio</strong>. Durée estimée : 24 min.</p>
+          </div>
+        </div>
+
+        <div class="section" style="padding-bottom: 6px;">
+          <div class="section-title">Étapes du trajet</div>
+          <div class="route-steps">
+            <div class="step-item">
+              <div class="step-icon walk"><i class="ti ti-walk" aria-hidden="true"></i></div>
+              <div class="step-info">
+                <div class="step-name">Marche — 180 m <span class="step-badge badge-ok">Trottoir large</span></div>
+                <div class="step-detail">Traversée aux feux sonores — Rue du Temple</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-icon metro"><i class="ti ti-stairs-up" aria-hidden="true"></i></div>
+              <div class="step-info">
+                <div class="step-name">Entrée Métro — Arts et Métiers <span class="step-badge badge-ok">Ascenseur</span></div>
+                <div class="step-detail">Ascenseur disponible — accès PMR confirmé</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-icon metro"><i class="ti ti-train" aria-hidden="true"></i></div>
+              <div class="step-info">
+                <div class="step-name">Ligne 11 — direction Châtelet</div>
+                <div class="step-detail">2 arrêts — Rampe d'accès à bord</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-icon elevator"><i class="ti ti-elevator" aria-hidden="true"></i></div>
+              <div class="step-info">
+                <div class="step-name">Correspondance — Châtelet <span class="step-badge badge-warn">Ascenseur A seulement</span></div>
+                <div class="step-detail">Éviter escalier B — 340 m de couloir plat</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-icon bus"><i class="ti ti-bus" aria-hidden="true"></i></div>
+              <div class="step-info">
+                <div class="step-name">Bus 72 — direction Hôtel de Ville <span class="step-badge badge-ok">Plancher bas</span></div>
+                <div class="step-detail">2 arrêts — Annonce sonore à bord</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-icon warn"><i class="ti ti-alert-triangle" aria-hidden="true"></i></div>
+              <div class="step-info">
+                <div class="step-name">Attention — Travaux rue de Rivoli <span class="step-badge badge-warn">Déviation</span></div>
+                <div class="step-detail">Chemin alternatif balisé — 90 m supplémentaires</div>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-icon arrive"><i class="ti ti-map-pin" aria-hidden="true"></i></div>
+              <div class="step-info">
+                <div class="step-name">Arrivée — 15 rue de Rivoli</div>
+                <div class="step-detail">Entrée accessible côté gauche</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <button class="cta-btn" onclick="startNav()"><i class="ti ti-navigation" aria-hidden="true"></i> Démarrer la navigation</button>
+        </div>
+      </div>
+
+      <div id="tab-options" style="display:none;">
+        <div class="section">
+          <div class="section-title">Mon profil de mobilité</div>
+          <div class="options-grid">
+            <div class="option-card selected" onclick="selectProfile(this)" data-p="pmr">
+              <i class="ti ti-wheelchair" style="color: var(--blue-600);" aria-hidden="true"></i>
+              <div class="option-label">PMR / Fauteuil</div>
+              <div class="option-sub">Rampes & ascenseurs</div>
+            </div>
+            <div class="option-card" onclick="selectProfile(this)" data-p="visuel">
+              <i class="ti ti-eye-off" style="color: var(--color-text-secondary);" aria-hidden="true"></i>
+              <div class="option-label">Handicap visuel</div>
+              <div class="option-sub">Guidage vocal & tactile</div>
+            </div>
+            <div class="option-card" onclick="selectProfile(this)" data-p="senior">
+              <i class="ti ti-user-heart" style="color: var(--color-text-secondary);" aria-hidden="true"></i>
+              <div class="option-label">Sénior</div>
+              <div class="option-sub">Allure modérée</div>
+            </div>
+            <div class="option-card" onclick="selectProfile(this)" data-p="cognitif">
+              <i class="ti ti-brain" style="color: var(--color-text-secondary);" aria-hidden="true"></i>
+              <div class="option-label">Cognitif</div>
+              <div class="option-sub">Instructions simples</div>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-title">Options d'accessibilité</div>
+          <div class="access-toggles">
+            <div class="toggle-row" onclick="toggleSwitch(this)">
+              <div class="toggle-left">
+                <span class="toggle-icon"><i class="ti ti-volume" aria-hidden="true"></i></span>
+                <div><div class="toggle-label">Guidage vocal</div><div class="toggle-sub">Instructions lues à voix haute</div></div>
+              </div>
+              <div class="toggle-switch on"><div class="toggle-knob"></div></div>
+            </div>
+            <div class="toggle-row" onclick="toggleSwitch(this)">
+              <div class="toggle-left">
+                <span class="toggle-icon"><i class="ti ti-elevator" aria-hidden="true"></i></span>
+                <div><div class="toggle-label">Ascenseurs prioritaires</div><div class="toggle-sub">Éviter escaliers et escalators</div></div>
+              </div>
+              <div class="toggle-switch on"><div class="toggle-knob"></div></div>
+            </div>
+            <div class="toggle-row" onclick="toggleSwitch(this)">
+              <div class="toggle-left">
+                <span class="toggle-icon"><i class="ti ti-alert-circle" aria-hidden="true"></i></span>
+                <div><div class="toggle-label">Alertes obstacles</div><div class="toggle-sub">Travaux, poteaux, dénivellés</div></div>
+              </div>
+              <div class="toggle-switch on"><div class="toggle-knob"></div></div>
+            </div>
+            <div class="toggle-row" onclick="toggleSwitch(this)">
+              <div class="toggle-left">
+                <span class="toggle-icon"><i class="ti ti-bench" aria-hidden="true"></i></span>
+                <div><div class="toggle-label">Points de repos</div><div class="toggle-sub">Bancs et zones assises sur le trajet</div></div>
+              </div>
+              <div class="toggle-switch off"><div class="toggle-knob"></div></div>
+            </div>
+            <div class="toggle-row" onclick="toggleSwitch(this)">
+              <div class="toggle-left">
+                <span class="toggle-icon"><i class="ti ti-restroom" aria-hidden="true"></i></span>
+                <div><div class="toggle-label">Toilettes accessibles</div><div class="toggle-sub">Afficher sur le trajet</div></div>
+              </div>
+              <div class="toggle-switch off"><div class="toggle-knob"></div></div>
+            </div>
+            <div class="toggle-row" onclick="toggleSwitch(this)">
+              <div class="toggle-left">
+                <span class="toggle-icon"><i class="ti ti-sun-high" aria-hidden="true"></i></span>
+                <div><div class="toggle-label">Mode contraste élevé</div><div class="toggle-sub">Interface adaptée malvoyants</div></div>
+              </div>
+              <div class="toggle-switch off"><div class="toggle-knob"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-alerts" style="display:none;">
+        <div class="section">
+          <div class="section-title">Alertes en temps réel</div>
+          <div class="info-banner warn">
+            <i class="ti ti-tool" aria-hidden="true"></i>
+            <p><strong>Travaux — Rue de Rivoli</strong><br>Jusqu'au 15 juillet. Déviation fléchée disponible, accessible PMR.</p>
+          </div>
+          <div class="info-banner warn">
+            <i class="ti ti-elevator" aria-hidden="true"></i>
+            <p><strong>Ascenseur hors service — Gare de Lyon (accès quai B)</strong><br>Utiliser l'entrée Diderot, ascenseur fonctionnel.</p>
+          </div>
+          <div class="info-banner info">
+            <i class="ti ti-check" aria-hidden="true"></i>
+            <p><strong>Bus 72 — Plancher bas confirmé</strong><br>Toutes les rames sont équipées aujourd'hui.</p>
+          </div>
+          <div class="info-banner info">
+            <i class="ti ti-map-pin" aria-hidden="true"></i>
+            <p><strong>Nouveau point de repos — Place du Châtelet</strong><br>4 bancs installés à l'ombre, à proximité de votre trajet.</p>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-title">Signaler un problème</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <button class="map-btn" style="justify-content:center; font-size:12px;" onclick="report('obstacle')"><i class="ti ti-cone" aria-hidden="true"></i> Obstacle</button>
+            <button class="map-btn" style="justify-content:center; font-size:12px;" onclick="report('ascenseur')"><i class="ti ti-elevator" aria-hidden="true"></i> Ascenseur HS</button>
+            <button class="map-btn" style="justify-content:center; font-size:12px;" onclick="report('chaussée')"><i class="ti ti-road" aria-hidden="true"></i> Chaussée dégradée</button>
+            <button class="map-btn" style="justify-content:center; font-size:12px;" onclick="report('passage')"><i class="ti ti-traffic-lights" aria-hidden="true"></i> Passage piéton</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-area">
+      <svg class="map-svg" viewBox="0 0 560 540" xmlns="http://www.w3.org/2000/svg">
+        <rect width="560" height="540" fill="#e8e3da"/>
+        <rect x="0" y="0" width="560" height="540" fill="#ede9df"/>
+
+        <rect x="40" y="60" width="120" height="80" rx="4" fill="#d6cfc4"/>
+        <rect x="200" y="40" width="80" height="60" rx="4" fill="#d6cfc4"/>
+        <rect x="320" y="50" width="100" height="70" rx="4" fill="#d6cfc4"/>
+        <rect x="60" y="200" width="90" height="100" rx="4" fill="#d6cfc4"/>
+        <rect x="200" y="180" width="140" height="90" rx="4" fill="#d6cfc4"/>
+        <rect x="390" y="190" width="110" height="80" rx="4" fill="#d6cfc4"/>
+        <rect x="40" y="360" width="130" height="90" rx="4" fill="#d6cfc4"/>
+        <rect x="220" y="350" width="100" height="70" rx="4" fill="#d6cfc4"/>
+        <rect x="380" y="360" width="130" height="80" rx="4" fill="#d6cfc4"/>
+
+        <line x1="160" y1="100" x2="200" y2="100" stroke="#ccc5b9" stroke-width="1"/>
+        <rect x="0" y="150" width="560" height="26" fill="#c8c0b2"/>
+        <rect x="0" y="154" width="560" height="18" fill="#bfb7a9"/>
+        <text x="10" y="167" font-size="9" fill="#8a8278" font-family="sans-serif">Rue de Rivoli</text>
+
+        <rect x="130" y="0" width="22" height="560" fill="#c8c0b2"/>
+        <rect x="134" y="0" width="14" height="560" fill="#bfb7a9"/>
+
+        <rect x="300" y="0" width="20" height="560" fill="#c8c0b2"/>
+        <rect x="304" y="0" width="12" height="560" fill="#bfb7a9"/>
+
+        <rect x="0" y="310" width="560" height="22" fill="#c8c0b2"/>
+        <rect x="0" y="314" width="560" height="14" fill="#bfb7a9"/>
+        <text x="10" y="325" font-size="9" fill="#8a8278" font-family="sans-serif">Rue du Temple</text>
+
+        <rect x="450" y="0" width="18" height="560" fill="#c8c0b2"/>
+
+        <polyline points="90,510 90,163 144,163 144,163 310,163 310,450 370,450" fill="none" stroke="#185FA5" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+        <polyline points="90,510 90,163 144,163 144,163 310,163 310,450 370,450" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 10" opacity="0.7"/>
+
+        <circle cx="90" cy="510" r="11" fill="#185FA5" stroke="white" stroke-width="2.5"/>
+        <text x="90" y="515" text-anchor="middle" font-size="10" fill="white" font-weight="bold" font-family="sans-serif">A</text>
+
+        <circle cx="144" cy="163" r="14" fill="#1D9E75" stroke="white" stroke-width="2.5"/>
+        <text x="144" y="168" text-anchor="middle" font-size="10" fill="white" font-weight="bold" font-family="sans-serif">M</text>
+
+        <circle cx="310" cy="163" r="14" fill="#BA7517" stroke="white" stroke-width="2.5"/>
+        <text x="310" y="168" text-anchor="middle" font-size="9" fill="white" font-weight="bold" font-family="sans-serif">⚠</text>
+
+        <circle cx="310" cy="450" r="11" fill="#534AB7" stroke="white" stroke-width="2.5"/>
+        <text x="310" y="455" text-anchor="middle" font-size="10" fill="white" font-weight="bold" font-family="sans-serif">B</text>
+
+        <circle cx="370" cy="450" r="14" fill="#0C447C" stroke="white" stroke-width="2.5"/>
+        <text x="370" y="455" text-anchor="middle" font-size="10" fill="white" font-weight="bold" font-family="sans-serif">★</text>
+
+        <rect x="60" y="488" width="60" height="20" rx="4" fill="white" opacity="0.85"/>
+        <text x="90" y="502" text-anchor="middle" font-size="9" fill="#185FA5" font-family="sans-serif" font-weight="bold">Départ</text>
+
+        <rect x="108" y="175" width="72" height="16" rx="3" fill="white" opacity="0.85"/>
+        <text x="144" y="187" text-anchor="middle" font-size="9" fill="#085041" font-family="sans-serif">Arts et Métiers</text>
+
+        <rect x="266" y="175" width="88" height="16" rx="3" fill="white" opacity="0.85"/>
+        <text x="310" y="187" text-anchor="middle" font-size="9" fill="#633806" font-family="sans-serif">⚠ Travaux</text>
+
+        <rect x="326" y="460" width="88" height="16" rx="3" fill="white" opacity="0.85"/>
+        <text x="370" y="472" text-anchor="middle" font-size="9" fill="#0C447C" font-family="sans-serif">Destination</text>
+
+        <circle cx="200" cy="163" r="6" fill="white" stroke="#1D9E75" stroke-width="2"/>
+        <circle cx="260" cy="163" r="6" fill="white" stroke="#1D9E75" stroke-width="2"/>
+        <circle cx="310" cy="280" r="6" fill="white" stroke="#185FA5" stroke-width="2"/>
+        <circle cx="310" cy="360" r="6" fill="white" stroke="#185FA5" stroke-width="2"/>
+
+        <rect x="220" y="385" width="56" height="26" rx="6" fill="#E1F5EE" stroke="#5DCAA5" stroke-width="1"/>
+        <text x="248" y="395" text-anchor="middle" font-size="8" fill="#085041" font-family="sans-serif" font-weight="bold">🚌 Bus 72</text>
+        <text x="248" y="406" text-anchor="middle" font-size="8" fill="#085041" font-family="sans-serif">Plancher bas</text>
+
+        <rect x="50" y="260" width="62" height="26" rx="6" fill="#E6F1FB" stroke="#85B7EB" stroke-width="1"/>
+        <text x="81" y="270" text-anchor="middle" font-size="8" fill="#0C447C" font-family="sans-serif" font-weight="bold">🚻 Accessible</text>
+        <text x="81" y="281" text-anchor="middle" font-size="8" fill="#0C447C" font-family="sans-serif">100m</text>
+
+        <rect x="380" y="270" width="58" height="22" rx="6" fill="#E1F5EE" stroke="#5DCAA5" stroke-width="1"/>
+        <text x="409" y="281" text-anchor="middle" font-size="8" fill="#085041" font-family="sans-serif">🏦 Banc</text>
+        <text x="409" y="291" text-anchor="middle" font-size="8" fill="#085041" font-family="sans-serif">repos</text>
+      </svg>
+
+      <div class="map-overlay-tl">
+        <button class="map-btn"><i class="ti ti-zoom-in" aria-hidden="true"></i> Zoom +</button>
+        <button class="map-btn"><i class="ti ti-zoom-out" aria-hidden="true"></i> Zoom −</button>
+        <button class="map-btn"><i class="ti ti-current-location" aria-hidden="true"></i> Ma position</button>
+      </div>
+
+      <div class="map-overlay-tr">
+        <button class="map-btn alert" id="alert-btn"><i class="ti ti-alert-triangle" aria-hidden="true"></i> 2 alertes sur le trajet</button>
+        <button class="map-btn" onclick="recalc()"><i class="ti ti-refresh" aria-hidden="true"></i> Recalculer</button>
+      </div>
+
+      <div class="legend">
+        <div style="font-size:11px; font-weight:500; color: var(--color-text-primary); margin-bottom:4px;">Légende</div>
+        <div class="legend-item"><div class="legend-dot leg-accessible"></div> Accessible confirmé</div>
+        <div class="legend-item"><div class="legend-dot leg-attention"></div> Attention requise</div>
+        <div class="legend-item"><div class="legend-dot leg-danger"></div> Inaccessible</div>
+        <div class="legend-item"><div class="legend-line leg-route"></div> Trajet adapté</div>
+      </div>
+
+      <div class="summary-bar">
+        <div class="summary-item"><div class="summary-val">24 min</div><div class="summary-lbl">Durée totale</div></div>
+        <div class="summary-div"></div>
+        <div class="summary-item"><div class="summary-val">1,8 km</div><div class="summary-lbl">Distance</div></div>
+        <div class="summary-div"></div>
+        <div class="summary-item"><div class="summary-val">3</div><div class="summary-lbl">Ascenseurs</div></div>
+        <div class="summary-div"></div>
+        <div class="summary-item"><div class="summary-val" style="color: var(--amber-600);">2</div><div class="summary-lbl">Alertes</div></div>
+        <div class="summary-div"></div>
+        <div class="summary-item"><div class="summary-val" style="color: var(--teal-600);">94%</div><div class="summary-lbl">Score accès</div></div>
+        <button class="cta-btn" style="width:auto; padding: 8px 18px; font-size:13px; margin:0;" onclick="startNav()">
+          <i class="ti ti-navigation" aria-hidden="true"></i> Démarrer
+        </button>
+      </div>
+
+      <button class="voice-btn" id="voiceBtn" onclick="toggleVoiceFab()" title="Guidage vocal" aria-label="Activer le guidage vocal">
+        <i class="ti ti-microphone" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" style="position:fixed; bottom:20px; left:50%; transform:translateX(-50%) translateY(80px); background:var(--color-background-primary); border:0.5px solid var(--color-border-secondary); border-radius:var(--border-radius-md); padding:10px 18px; font-size:13px; font-weight:500; color:var(--color-text-primary); transition:transform 0.3s; z-index:100; white-space:nowrap; pointer-events:none;"></div>
+
+<script>
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.transform = 'translateX(-50%) translateY(0)';
+  setTimeout(() => { t.style.transform = 'translateX(-50%) translateY(80px)'; }, 2500);
+}
+
+function showTab(name, el) {
+  ['itinerary','options','alerts'].forEach(n => {
+    const tab = document.getElementById('tab-' + n);
+    if (tab) tab.style.display = 'none';
+  });
+  const target = document.getElementById('tab-' + name);
+  if (target) target.style.display = 'block';
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function toggleSwitch(row) {
+  const sw = row.querySelector('.toggle-switch');
+  sw.classList.toggle('on');
+  sw.classList.toggle('off');
+  const label = row.querySelector('.toggle-label').textContent;
+  const isOn = sw.classList.contains('on');
+  showToast((isOn ? '✓ Activé : ' : '○ Désactivé : ') + label);
+}
+
+function selectProfile(card) {
+  document.querySelectorAll('.option-card').forEach(c => {
+    c.classList.remove('selected');
+    c.querySelector('.ti').style.color = 'var(--color-text-secondary)';
+  });
+  card.classList.add('selected');
+  card.querySelector('.ti').style.color = 'var(--blue-600)';
+  const profiles = { pmr:'Profil PMR activé — ascenseurs et rampes prioritaires', visuel:'Profil malvoyant — guidage vocal tactile activé', senior:'Profil sénior — allure modérée, points de repos activés', cognitif:'Profil cognitif — instructions simplifiées activées' };
+  showToast(profiles[card.dataset.p] || 'Profil mis à jour');
+}
+
+function toggleVoice(btn) {
+  btn.classList.toggle('active');
+  const on = btn.classList.contains('active');
+  showToast(on ? '🔊 Guidage vocal activé' : '🔇 Guidage vocal désactivé');
+}
+
+function toggleVoiceFab() {
+  const btn = document.getElementById('voiceBtn');
+  btn.classList.toggle('pulse');
+  const on = btn.classList.contains('pulse');
+  showToast(on ? '🎙️ Navigation vocale démarrée' : '🔇 Navigation vocale arrêtée');
+}
+
+function startNav() {
+  showToast('🚀 Navigation démarrée — Guidage vocal en cours…');
+  document.getElementById('voiceBtn').classList.add('pulse');
+}
+
+function recalc() {
+  showToast('🔄 Itinéraire recalculé avec les dernières alertes');
+}
+
+function report(type) {
+  const msgs = { obstacle:'Merci ! Obstacle signalé — vérification en cours', ascenseur:'Ascenseur HS signalé — mis à jour dans la base', chaussée:'Chaussée dégradée signalée — merci !', passage:'Passage piéton signalé — en cours de traitement' };
+  showToast('✓ ' + (msgs[type] || 'Signalement envoyé'));
+}
+</script>
