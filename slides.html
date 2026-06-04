@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Présentation Project Canva - CRTL + ALT + Elite</title>
+    <title>Présentation AccessiRoute - CTRL + ALT + Elite</title>
     <style>
         :root {
             --bg-dark: #0f172a;
@@ -163,7 +163,7 @@
         .slide-title-layout {
             justify-content: center;
             text-align: center;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            background: linear-gradient(135deg, #0c447c 0%, #0f172a 100%);
         }
 
         .slide-title-layout h1 {
@@ -211,9 +211,9 @@
         }
 
         .btn:hover {
-            background-color: var(--electric-blue);
+            background-color: #185FA5;
             color: var(--white);
-            border-color: var(--electric-blue);
+            border-color: #185FA5;
             transform: translateY(-2px);
         }
 
@@ -231,15 +231,15 @@
         }
 
         .dot.active {
-            background-color: var(--electric-blue);
+            background-color: #3b82f6;
             width: 24px;
             border-radius: 10px;
         }
 
         /* Highlight Box pour la proposition de valeur */
         .highlight-box {
-            background: rgba(249, 115, 22, 0.1);
-            border-left: 4px solid var(--accent-orange);
+            background: rgba(24, 95, 165, 0.1);
+            border-left: 4px solid #185FA5;
             padding: 15px;
             border-radius: 0 8px 8px 0;
             font-size: 0.95rem;
@@ -283,12 +283,11 @@
         <!-- SLIDE 1 : ACCUEIL / PROJECT DEFINITION -->
         <div class="slide slide-title-layout active">
             <div>
-                <div class="canva-tag">Project Definition</div>
-                <h1>Comment l'IA pourrait-elle améliorer nos déplacements de tous les jours ?</h1>
+                <div class="canva-tag" style="color: #38bdf8;">Project Definition</div>
+                <h1>Comment l'intelligence artificielle peut-elle faciliter les déplacements des personnes en situation de handicap ?</h1>
             </div>
             <div class="meta-grid">
-                <div>Groupe : <strong style="color: var(--electric-blue);">CRTL + ALT + Elite</strong></div>
-                <div>Date : <strong>04/06/2026</strong></div>
+                <div>Groupe : <strong style="color: #38bdf8;">CTRL + ALT + Elite</strong></div>
                 <div>Classe : <strong>2MTNE</strong></div>
             </div>
             <div class="slide-footer">
@@ -302,19 +301,25 @@
             <div class="slide-header">
                 <div class="canva-tag">Identified Needs</div>
                 <h2>1. Le Besoin Identifié</h2>
-                <div class="slide-question">What need does your project address?</div>
+                <div class="slide-question">Quel besoin notre projet adresse-t-il ?</div>
             </div>
             <div class="slide-body">
                 <div class="slide-text">
-                    <p>L'objectif majeur de ce projet est d'apporter une réflexion approfondie sur les différentes problématiques, contraintes et ralentissements que nous subissons au quotidien lors de nos trajets urbains.</p>
-                    <p>Nous étudions comment l'intégration ciblée de l'intelligence artificielle peut offrir des solutions technologiques concrètes pour optimiser, fluidifier et restructurer ces déplacements de tous les jours.</p>
+                    <p>Les personnes en situation de handicap rencontrent régulièrement de nombreux obstacles majeurs lors de leurs trajets urbains quotidiens :</p>
+                    <ul>
+                        <li>Escaliers non signalés ou impraticables.</li>
+                        <li>Ascenseurs en panne dans les gares et stations.</li>
+                        <li>Trottoirs inadaptés ou bloqués par des travaux.</li>
+                        <li>Manque flagrant d'informations fiables et actualisées en temps réel.</li>
+                    </ul>
+                    <p>L'objectif d'<strong>AccessiRoute</strong> est de lever ces barrières en proposant une solution technologique concrète pour restaurer l'autonomie de déplacement.</p>
                 </div>
                 <div class="slide-image">
-                    <img src="https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=500&q=80" alt="Embouteillages urbains">
+                    <img src="https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?auto=format&fit=crop&w=500&q=80" alt="Mobilité urbaine accessible">
                 </div>
             </div>
             <div class="slide-footer">
-                <span>Équipe CRTL + ALT + Elite</span>
+                <span>Équipe CTRL + ALT + Elite</span>
                 <span>Slide 2/6</span>
             </div>
         </div>
@@ -323,25 +328,25 @@
         <div class="slide">
             <div class="slide-header">
                 <div class="canva-tag">Target - End Users</div>
-                <h2>2. Public Cible & Utilisateurs</h2>
-                <div class="slide-question">Who is this project intended for? Who is affected by the identified need?</div>
+                <h2>2. Public Cible & Utilisateurs finaux</h2>
+                <div class="slide-question">À qui s'adresse cette solution ?</div>
             </div>
             <div class="slide-body">
                 <div class="slide-text">
-                    <p>Ce projet s'adresse globalement à l'ensemble des citoyens amenés à se déplacer quotidiennement pour leurs activités, qu'il s'agisse de se rendre à l'école, sur leur lieu de travail ou pour leurs loisirs.</p>
-                    <p>Notre solution englobe et protège les quatre profils clés de la route :</p>
+                    <p>Notre application est spécifiquement conçue pour s'adapter aux exigences de profils variés :</p>
                     <ul>
-                        <li><strong>Conducteurs :</strong> Évitement des congestions routières.</li>
-                        <li><strong>Usagers des transports :</strong> Information en direct sur les réseaux.</li>
-                        <li><strong>Cyclistes & Piétons :</strong> Sécurisation des parcours et gain de temps.</li>
+                        <li><strong>Personnes à mobilité réduite (PMR) :</strong> Nécessitant des parcours sans marches et avec des rampes d'accès.</li>
+                        <li><strong>Personnes malvoyantes ou non-voyantes :</strong> Ayant besoin de guidages sonores ou d'itinéraires simplifiés.</li>
+                        <li><strong>Seniors & personnes avec troubles cognitifs :</strong> Recherchant des trajets sécurisants et moins stressants.</li>
                     </ul>
+                    <p>Elle profite également aux accompagnateurs et aux services de transport public.</p>
                 </div>
                 <div class="slide-image">
-                    <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=500&q=80" alt="Transports publics">
+                    <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140e2b8?auto=format&fit=crop&w=500&q=80" alt="Inclusion et accessibilité">
                 </div>
             </div>
             <div class="slide-footer">
-                <span>Équipe CRTL + ALT + Elite</span>
+                <span>Équipe CTRL + ALT + Elite</span>
                 <span>Slide 3/6</span>
             </div>
         </div>
@@ -351,45 +356,48 @@
             <div class="slide-header">
                 <div class="canva-tag orange">Unique Value Proposition</div>
                 <h2>3. Notre Proposition de Valeur Unique</h2>
-                <div class="slide-question">How does it differ from what exists today? How does it address the need?</div>
+                <div class="slide-question">En quoi AccessiRoute se distingue-t-elle des solutions existantes ?</div>
             </div>
             <div class="slide-body">
                 <div class="slide-text">
-                    <p>Notre application exploite la puissance de l'IA pour traiter les conditions de circulation en temps réel. Elle calcule instantanément les meilleurs itinéraires alternatifs, disperse les goulots d'étranglement et anticipe les retards sur les réseaux de transit.</p>
+                    <p>AccessiRoute ne se contente pas d'être un simple GPS de navigation.</p>
                     <div class="highlight-box">
-                        <strong>Notre Facteur Différenciant :</strong> Contrairement aux GPS classiques qui se contentent de constater le trafic existant, notre système utilise l'<strong>analyse prédictive</strong> pour anticiper les problèmes avant qu'ils ne surviennent. Cela garantit un gain de temps, une sécurité accrue et une baisse de la pollution.
+                        <strong>Notre Facteur Différenciant :</strong><br>
+                        Contrairement aux applications classiques, notre système analyse automatiquement la typologie du handicap de l'utilisateur pour calculer un itinéraire 100 % sur mesure. Il croise les données d'infrastructures avec les signalements communautaires pour contourner dynamiquement les obstacles avant d'y être confronté.
                     </div>
+                </div>
+                <div class="slide-image">
+                    <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=500&q=80" alt="Technologie au service de l'humain">
                 </div>
             </div>
             <div class="slide-footer">
-                <span>Équipe CRTL + ALT + Elite</span>
+                <span>Équipe CTRL + ALT + Elite</span>
                 <span>Slide 4/6</span>
             </div>
         </div>
 
-        <!-- SLIDE 5 : STAKEHOLDERS & ROLE OF AI -->
+        <!-- SLIDE 5 : ROLE OF AI & STAKEHOLDERS -->
         <div class="slide">
             <div class="slide-header">
-                <div class="canva-tag">Stakeholders & Technology</div>
-                <h2>4. Acteurs & Rôle de l'IA</h2>
-                <div class="slide-question">Who will you need? How do you ensure responsible use of AI?</div>
+                <div class="canva-tag">Role of AI</div>
+                <h2>4. Le Rôle Central de l'IA</h2>
+                <div class="slide-question">Comment la technologie résout-elle le problème ?</div>
             </div>
             <div class="slide-body">
                 <div class="slide-text">
-                    <p>L'intelligence artificielle agit comme le cerveau central en corrélant les données de positionnement <strong>GPS</strong> et les flux d'informations du trafic mis à jour en direct.</p>
-                    <p>Pour matérialiser cet écosystème, nous collaborons avec :</p>
+                    <p>L'intelligence artificielle constitue le cœur et le cerveau de notre application :</p>
                     <ul>
-                        <li><strong>Les experts en IA :</strong> Pour concevoir et entraîner les modèles.</li>
-                        <li><strong>Les entreprises de transport :</strong> Pour partager les traceurs de flottes.</li>
-                        <li><strong>L'État et les villes :</strong> Pour encadrer légalement le déploiement.</li>
+                        <li><strong>Analyse prédictive :</strong> Détection et anticipation des perturbations de parcours (pannes d'infrastructures).</li>
+                        <li><strong>Modélisation de profil :</strong> Apprentissage continu pour optimiser la pertinence des recommandations.</li>
+                        <li><strong>Interconnexion :</strong> Fusion des données issues des collectivités territoriales, des réseaux de transport et des signalements d'utilisateurs.</li>
                     </ul>
                 </div>
                 <div class="slide-image">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=500&q=80" alt="Data et IA">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=500&q=80" alt="Intelligence artificielle et flux de données">
                 </div>
             </div>
             <div class="slide-footer">
-                <span>Équipe CRTL + ALT + Elite</span>
+                <span>Équipe CTRL + ALT + Elite</span>
                 <span>Slide 5/6</span>
             </div>
         </div>
@@ -398,17 +406,20 @@
         <div class="slide">
             <div class="slide-header">
                 <div class="canva-tag orange">Barriers & Ethics</div>
-                <h2>5. Contraintes, Obstacles & Éthique</h2>
-                <div class="slide-question">What constraints do you anticipate? Do you identify ethical limits?</div>
+                <h2>5. Contraintes, Limites & Déthique</h2>
+                <div class="slide-question">Quels sont les défis et limites éthiques du projet ?</div>
             </div>
             <div class="slide-body">
                 <div class="slide-text">
-                    <p><strong>L'accès à des données fiables :</strong> C'est notre principal obstacle technique. La viabilité et la précision de l'IA dépendent entièrement de la stabilité des flux de données reçus en direct.</p>
-                    <p><strong>L'Engagement Éthique Absolu :</strong> La protection de la vie privée est au centre de notre architecture. <strong>Les données de positionnement et informations personnelles des utilisateurs seront hautement sécurisées et ne seront jamais partagées sans leur consentement et accord explicite.</strong></p>
+                    <p><strong>La fraîcheur des données :</strong> Le défi principal repose sur l'obtention d'informations fiables en temps réel. Un obstacle temporaire non répertorié peut nuire à l'efficacité du trajet proposé.</p>
+                    <p><strong>Cadre Éthique et RGPD :</strong> L'application traite des données sensibles liées à la santé et aux habitudes de déplacement. <strong>Toutes ces données sont chiffrées, sécurisées et utilisées exclusivement pour le calcul local de l'itinéraire, garantissant le respect total de la vie privée des usagers.</strong></p>
+                </div>
+                <div class="slide-image">
+                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=500&q=80" alt="Sécurité et éthique">
                 </div>
             </div>
             <div class="slide-footer">
-                <span>Fin de la présentation - Questions & Réponses</span>
+                <span>Fin de la présentation - Des questions ?</span>
                 <span>Slide 6/6</span>
             </div>
         </div>
