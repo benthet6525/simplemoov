@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projet CRTL + ALT + Elite - Project Canva</title>
+    <title>Projet CRTL + ALT + Elite - Spécifications Canva</title>
     <style>
         :root {
             --bg-main: #f4f7f6;
@@ -102,21 +102,10 @@
             width: 100%;
         }
 
-        /* --- NOTE FLASH TOUT EN HAUT --- */
-        .top-alert {
-            background-color: #fef2f2;
-            border-bottom: 1px solid #fee2e2;
-            color: #991b1b;
-            padding: 10px;
-            text-align: center;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-top: 65px;
-        }
-
         /* --- HERO SECTION --- */
         .hero {
-            padding: 60px 20px 60px 20px;
+            margin-top: 65px;
+            padding: 80px 20px 60px 20px;
             background: var(--white);
             text-align: center;
             border-bottom: 1px solid rgba(0,0,0,0.05);
@@ -125,6 +114,15 @@
         .hero-container {
             max-width: 850px;
             margin: 0 auto;
+        }
+
+        .canva-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--electric-blue);
+            font-weight: 700;
+            margin-bottom: 10px;
         }
 
         .hero h1 {
@@ -142,14 +140,16 @@
             gap: 40px;
             font-size: 0.95rem;
             color: var(--text-light);
-            margin-top: 20px;
+            margin-top: 25px;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 20px;
         }
 
         .meta-item strong {
             color: var(--accent-blue);
         }
 
-        /* --- SECTIONS --- */
+        /* --- SECTIONS ET GRILLE --- */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -158,7 +158,7 @@
 
         .section {
             padding: 40px 0;
-            scroll-margin-top: 80px;
+            scroll-margin-top: 90px;
         }
 
         .row {
@@ -186,51 +186,78 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: var(--card-shadow);
+            transition: var(--transition-smooth);
         }
 
         .img-wrapper img {
             width: 100%;
-            height: 300px;
+            height: 320px;
             object-fit: cover;
             display: block;
         }
 
-        /* --- CARDS --- */
+        .img-wrapper:hover {
+            transform: scale(1.02);
+        }
+
+        /* --- STYLE DES ENCADRÉS DU CANVA --- */
         .card {
             background: var(--white);
-            padding: 30px;
+            padding: 35px;
             border-radius: 12px;
             box-shadow: var(--card-shadow);
-            border-left: 5px solid var(--electric-blue);
+            border-top: 4px solid var(--electric-blue);
             margin-bottom: 20px;
         }
 
         .card-orange {
-            border-left-color: var(--accent-orange);
+            border-top-color: var(--accent-orange);
         }
 
-        .card-header-title {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-light);
+        .canva-header-blue {
+            font-size: 1.3rem;
+            color: #1a5276;
+            font-weight: 700;
             margin-bottom: 5px;
         }
 
-        .card h3 {
-            font-size: 1.4rem;
-            color: var(--accent-blue);
+        .canva-question-grey {
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.4;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .rewritten-content {
+            color: var(--text-dark);
+            font-size: 1.05rem;
+            text-align: justify;
+        }
+
+        .rewritten-content p {
             margin-bottom: 15px;
         }
 
-        .handwritten-content {
-            background-color: #fafafa;
-            border: 1px dashed #e2e8f0;
+        .rewritten-content ul {
+            list-style-type: square;
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .rewritten-content li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background-color: #f8fafc;
+            border-left: 4px solid var(--accent-orange);
             padding: 15px;
-            border-radius: 6px;
-            font-style: italic;
-            color: #334155;
-            white-space: pre-line;
+            margin-top: 15px;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
         }
 
         /* --- FOOTER --- */
@@ -252,8 +279,8 @@
             <div class="logo">CRTL.ALT.<span>ELITE</span></div>
             <ul class="nav-menu">
                 <li class="nav-item"><a href="#needs">Identified Needs</a></li>
-                <li class="nav-item"><a href="#target">Target - End users</a></li>
-                <li class="nav-item"><a href="#value">Unique value proposition</a></li>
+                <li class="nav-item"><a href="#target">Target</a></li>
+                <li class="nav-item"><a href="#value">Unique Value</a></li>
                 <li class="nav-item"><a href="#stakeholders">Stakeholders</a></li>
                 <li class="nav-item"><a href="#role-ai">Role of AI</a></li>
                 <li class="nav-item"><a href="#barriers">Barriers</a></li>
@@ -261,18 +288,14 @@
         </div>
     </nav>
 
-    <!-- NOTE DE DÉBUT DE FEUILLE (ANNOTATION EN VERT TOUT EN HAUT) -->
-    <div class="top-alert">
-        📌 Note de sécurité globale : des utilisateurs / *protéger et ne seront pas partager sans leurs accords
-    </div>
-
-    <!-- HERO SECTION : PROJECT DEFINITION -->
+    <!-- HERO SECTION : EN-TÊTE DU CANVA -->
     <header class="hero">
         <div class="hero-container">
-            <h1 class="handwritten-content" style="font-size: 1.8rem; font-style: normal;">Comment l'IA pourrait-elle améliorer nos déplacement de tous les jours</h1>
+            <div class="canva-title">Project Definition</div>
+            <h1>Comment l'IA pourrait-elle améliorer nos déplacements de tous les jours ?</h1>
             
             <div class="meta-grid">
-                <div class="meta-item">Title - Group : <strong>CRTL + ALT + Elite</strong></div>
+                <div class="meta-item">Groupe : <strong>CRTL + ALT + Elite</strong></div>
                 <div class="meta-item">Date : <strong>04/06/2026</strong></div>
                 <div class="meta-item">Classe : <strong>2MTNE</strong></div>
             </div>
@@ -286,16 +309,17 @@
             <div class="row">
                 <div class="col-text">
                     <div class="card">
-                        <div class="card-header-title">What need does your project address?</div>
-                        <h3>Identified needs :</h3>
-                        <div class="handwritten-content">
-                            Le sujet comment l'IA pourrait elle ameliorer nos deplacement de tous les jours cherche a vous faire reflechir pour probleme rencontre dans des trajets quotidiens a la maniere dont l'intelligence artificielle pourrait les resoudres.
+                        <div class="canva-header-blue">Identified needs :</div>
+                        <div class="canva-question-grey">What need does your project address?</div>
+                        
+                        <div class="rewritten-content">
+                            <p>L'objectif de ce projet est d'apporter une réflexion approfondie sur les différentes problématiques et contraintes rencontrées quotidiennement lors de nos déplacements urbains. Nous étudions comment l'intégration de l'intelligence artificielle peut offrir des solutions concrètes pour optimiser et fluidifier ces trajets de tous les jours.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-image">
                     <div class="img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=600&q=80" alt="Trafic routier">
+                        <img src="https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=600&q=80" alt="Réseau routier urbain encombré">
                     </div>
                 </div>
             </div>
@@ -306,16 +330,25 @@
             <div class="row row-reverse">
                 <div class="col-text">
                     <div class="card">
-                        <div class="card-header-title">Who is this project intended for? Who is affected by the identified need?</div>
-                        <h3>Target – End users :</h3>
-                        <div class="handwritten-content">
-                            Ce projet est destiné à toute les personnes qui se deplace chaque jours que ce soit pour aller a l'école, au travaille ou pour leur activité. Le besoin concerne les conducteur, les usagers des transports en communs, les cyclistes et les pietons. L'IA peut ees aider a gagner du temps, eviter les embouteillage et rendre leur deplacement plus sur et plus efficace
+                        <div class="canva-header-blue">Target – End users :</div>
+                        <div class="canva-question-grey">Who is this project intended for? Who is affected by the identified need?</div>
+                        
+                        <div class="rewritten-content">
+                            <p>Ce projet s'adresse à l'ensemble des citoyens amenés à se déplacer quotidiennement pour leurs activités, qu'il s'agisse de se rendre à l'école, sur leur lieu de travail ou pour leurs loisirs.</p>
+                            <p>Le besoin de fluidité concerne directement plusieurs profils d'usagers :</p>
+                            <ul>
+                                <li>Les conducteurs de véhicules individuels.</li>
+                                <li>Les usagers des réseaux de transports en commun.</li>
+                                <li>Les adeptes des mobilités douces (cyclistes).</li>
+                                <li>Les piétons.</li>
+                            </ul>
+                            <p>L'intelligence artificielle interviendra pour aider chacun d'eux à économiser du temps, à contourner intelligemment les embouteillages et à rendre leurs déplacements globaux plus sûrs et performants.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-image">
                     <div class="img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80" alt="Bus et piétons">
+                        <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80" alt="Autobus et usagers dans la ville">
                     </div>
                 </div>
             </div>
@@ -324,13 +357,15 @@
         <!-- SECTION 3 : UNIQUE VALUE PROPOSITION -->
         <section id="value" class="section">
             <div class="card card-orange">
-                <div class="card-header-title">Describe the solutions your project provides. How does it differ from what exists today? How does it address the need you identified?</div>
-                <h3>Unique value proposition :</h3>
-                <div class="handwritten-content" style="margin-bottom: 15px;">
-                    notre projet utilise l'IA pour ameliorer les deplacements quotidien grace a l'analyse du trafic en temps reel, l'IA peut proposer les meilleurs itineraire, eviter les embouteillage et informer des retards dans les transports.
-                </div>
-                <div class="handwritten-content">
-                    Contrairement au solutions actuelle, elles anticipe les probleemes avant qu'ies ne surviennent et offre des recommandations personnaliser, cette solutions permet de gagner du temps et d'ameliorer la securite et de reduire la pollution
+                <div class="canva-header-blue" style="color: var(--accent-orange);">Unique value proposition :</div>
+                <div class="canva-question-grey">Describe the solutions your project provides. How does it differ from what exists today? How does it address the need you identified?</div>
+                
+                <div class="rewritten-content">
+                    <p>Notre application exploite la puissance de l'IA pour transformer la gestion des déplacements quotidiens grâce à un traitement algorithmique des conditions de circulation en temps réel. Le système calcule instantanément les meilleurs itinéraires alternatifs, évite activement la formation de goulots d'étranglement et informe immédiatement les usagers d'éventuels retards sur les réseaux de transport.</p>
+                    
+                    <div class="highlight-box">
+                        <strong>Notre facteur de différenciation :</strong> Contrairement aux solutions GPS traditionnelles du marché qui se limitent à constater le trafic actuel, notre système anticipe les ralentissements avant même qu'ils ne se forment. En proposant des recommandations prédictives et ultra-personnalisées, le projet permet de maximiser le gain de temps, d'élever le niveau de sécurité routière et de réduire l'empreinte carbone liée à la congestion automobile.
+                    </div>
                 </div>
             </div>
         </section>
@@ -340,16 +375,22 @@
             <div class="row">
                 <div class="col-text">
                     <div class="card">
-                        <div class="card-header-title">Who will you need for your project? (Government, companies, specific experts, potential legal framework...)</div>
-                        <h3>Stakeholders :</h3>
-                        <div class="handwritten-content">
-                            Pour ce projet on aura besoin de specialiste en IA pour creer le systeme. Les entreprises de transport pourrons partager des informations sur le trafic et les tracers, le gouvernement et les villes devrons aussi participer pour autoriser le projet et s'assurer que les données des utilisateurs sont protegés*
+                        <div class="canva-header-blue">Stakeholders :</div>
+                        <div class="canva-question-grey">Who will you need for your project? (Government, companies, specific experts, potential legal framework...)</div>
+                        
+                        <div class="rewritten-content">
+                            <p>La concrétisation de ce projet s'appuie sur la collaboration étroite de plusieurs acteurs stratégiques :</p>
+                            <ul>
+                                <li><strong>Les experts et ingénieurs en IA :</strong> Indispensables pour concevoir, modéliser et assurer la maintenance de l'infrastructure logicielle.</li>
+                                <li><strong>Les entreprises et régies de transport :</strong> Partenaires clés pour centraliser et partager les données de trafic en direct ainsi que les données de traçabilité des flottes.</li>
+                                <li><strong>Les municipalités et l'État :</strong> Indispensables pour valider le cadre réglementaire, accorder les autorisations nécessaires au déploiement et garantir une protection absolue des données personnelles des usagers.</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
                 <div class="col-image">
                     <div class="img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Réunion de travail / Experts">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Réunion d'experts et de partenaires">
                     </div>
                 </div>
             </div>
@@ -360,16 +401,18 @@
             <div class="row row-reverse">
                 <div class="col-text">
                     <div class="card">
-                        <div class="card-header-title">Do you identify any technologies or outcomes that are necessary for your project? How do you ensure responsible use of AI?</div>
-                        <h3>What is the role of AI in your project?</h3>
-                        <div class="handwritten-content">
-                            Pour ce projet on aura besoin de d'IA, du GPS, et d'informations sur le trafic en direct, grace a ça l'IA pourra nous proposer les meilleurs trajets et nous faire gagner du temps. Pour que l'IA soit utiliser de maniere responsable, les information personnelle des utilisateurs seront*
+                        <div class="canva-header-blue">What is the role of AI in your project?</div>
+                        <div class="canva-question-grey">Do you identify any technologies or outcomes that are necessary for your project? How do you ensure responsible use of AI?</div>
+                        
+                        <div class="rewritten-content">
+                            <p>L'intelligence artificielle agit comme le cerveau central du système. En corrélant les données de géolocalisation par satellite (GPS) et les flux d'informations du trafic routier mis à jour en direct, elle génère des prédictions de trajectoires optimales permettant un gain de temps mesurable pour chaque trajet.</p>
+                            <p>Pour assurer un déploiement éthique et responsable, <strong>les informations privées et données de positionnement des utilisateurs seront hautement sécurisées et ne seront en aucun cas partagées sans leur consentement et accord explicite</strong>.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-image">
                     <div class="img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Intelligence Artificielle et Données GPS">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Interface de gestion de flux de données numériques">
                     </div>
                 </div>
             </div>
@@ -378,18 +421,20 @@
         <!-- SECTION 6 : BARRIERS -->
         <section id="barriers" class="section">
             <div class="card card-orange">
-                <div class="card-header-title">What constraints or barriers do you anticipate in implementing your project? Do you identify any ethical limits in the implementation of your project?</div>
-                <h3>Barriers :</h3>
-                <div class="handwritten-content">
-                    l'un des principaux obstacle de ce projet et l'acces a des donnees fiable
+                <div class="canva-header-blue" style="color: var(--accent-orange);">Barriers :</div>
+                <div class="canva-question-grey">What constraints or barriers do you anticipate in implementing your project? Do you identify any ethical limits in the implementation of your project?</div>
+                
+                <div class="rewritten-content">
+                    <p>Le principal défi technique et opérationnel identifié pour ce projet réside dans <strong>la difficulté d'accéder à des flux de données massifs, fiables, stables et structurés en temps réel</strong>. La viabilité et la pertinence des prédictions de l'IA dépendent entièrement de la qualité de ces données d'entrée.</p>
                 </div>
             </div>
         </section>
 
     </main>
 
+    <!-- FOOTER -->
     <footer>
-        <p>Project Canva - 2MTNE - Équipe CRTL + ALT + Elite</p>
+        <p>Project Canva Réécriture Professionnelle | Équipe <strong>CRTL + ALT + Elite</strong> | Classe <strong>2MTNE</strong> &copy; 2026</p>
     </footer>
 
 </body>
