@@ -1,443 +1,243 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projet CTRL + ALT + Elite - Spécifications Canva</title>
-    <style>
-        :root {
-            --bg-main: #f4f7f6;
-            --text-dark: #1e293b;
-            --text-light: #64748b;
-            --accent-blue: #0f172a;
-            --electric-blue: #2563eb;
-            --accent-orange: #f97316;
-            --white: #ffffff;
-            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AccessiRoute - Présentation du Projet</title>
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, sans-serif;
+}
 
-        html {
-            scroll-behavior: smooth;
-        }
+body{
+    background:#f1f5f9;
+    color:#1e293b;
+    line-height:1.7;
+}
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-dark);
-            line-height: 1.7;
-        }
+header{
+    background:#0c447c;
+    color:white;
+    text-align:center;
+    padding:80px 20px;
+}
 
-        /* --- BARRE DE NAVIGATION ANIMÉE --- */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            z-index: 1000;
-            box-shadow: 0 1px 0px rgba(0,0,0,0.05);
-        }
+header h1{
+    font-size:2.8rem;
+    margin-bottom:15px;
+}
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+header p{
+    max-width:800px;
+    margin:auto;
+    opacity:0.9;
+}
 
-        .logo {
-            font-weight: 800;
-            font-size: 1.2rem;
-            color: var(--accent-blue);
-            letter-spacing: -0.5px;
-        }
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:50px 20px;
+}
 
-        .logo span {
-            color: var(--electric-blue);
-        }
+.section{
+    background:white;
+    border-radius:15px;
+    padding:35px;
+    margin-bottom:30px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
 
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 25px;
-        }
+.section h2{
+    color:#0c447c;
+    margin-bottom:15px;
+}
 
-        .nav-item a {
-            text-decoration: none;
-            color: var(--text-light);
-            font-weight: 500;
-            font-size: 0.95rem;
-            position: relative;
-            padding: 8px 0;
-            transition: color 0.3s ease;
-        }
+.section p{
+    margin-bottom:15px;
+}
 
-        .nav-item a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--electric-blue);
-            transition: var(--transition-smooth);
-        }
+ul{
+    margin-left:25px;
+}
 
-        .nav-item a:hover {
-            color: var(--accent-blue);
-        }
+.highlight{
+    background:#e6f1fb;
+    border-left:5px solid #185FA5;
+    padding:20px;
+    border-radius:10px;
+    margin-top:20px;
+}
 
-        .nav-item a:hover::after {
-            width: 100%;
-        }
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    margin-top:20px;
+}
 
-        /* --- HERO SECTION --- */
-        .hero {
-            margin-top: 65px;
-            padding: 80px 20px 60px 20px;
-            background: var(--white);
-            text-align: center;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
+.card{
+    background:#f8fafc;
+    border:1px solid #e2e8f0;
+    padding:20px;
+    border-radius:12px;
+}
 
-        .hero-container {
-            max-width: 850px;
-            margin: 0 auto;
-        }
+.card h3{
+    color:#185FA5;
+    margin-bottom:10px;
+}
 
-        .canva-title {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--electric-blue);
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .hero h1 {
-            font-size: 2.3rem;
-            font-weight: 800;
-            line-height: 1.3;
-            color: var(--accent-blue);
-            letter-spacing: -1px;
-            margin-bottom: 20px;
-        }
-
-        .meta-grid {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            font-size: 0.95rem;
-            color: var(--text-light);
-            margin-top: 25px;
-            border-top: 1px solid #f1f5f9;
-            padding-top: 20px;
-        }
-
-        .meta-item strong {
-            color: var(--accent-blue);
-        }
-
-        /* --- SECTIONS ET GRILLE --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .section {
-            padding: 40px 0;
-            scroll-margin-top: 90px;
-        }
-
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .row-reverse {
-            flex-direction: row-reverse;
-        }
-
-        .col-text {
-            flex: 1.2;
-            min-width: 320px;
-        }
-
-        .col-image {
-            flex: 0.8;
-            min-width: 320px;
-        }
-
-        .img-wrapper {
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            transition: var(--transition-smooth);
-        }
-
-        .img-wrapper img {
-            width: 100%;
-            height: 320px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .img-wrapper:hover {
-            transform: scale(1.02);
-        }
-
-        /* --- STYLE DES ENCADRÉS DU CANVA --- */
-        .card {
-            background: var(--white);
-            padding: 35px;
-            border-radius: 12px;
-            box-shadow: var(--card-shadow);
-            border-top: 4px solid var(--electric-blue);
-            margin-bottom: 20px;
-        }
-
-        .card-orange {
-            border-top-color: var(--accent-orange);
-        }
-
-        .canva-header-blue {
-            font-size: 1.3rem;
-            color: #1a5276;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .canva-question-grey {
-            font-size: 0.9rem;
-            font-style: italic;
-            color: var(--text-light);
-            margin-bottom: 20px;
-            line-height: 1.4;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #f1f5f9;
-        }
-
-        .rewritten-content {
-            color: var(--text-dark);
-            font-size: 1.05rem;
-            text-align: justify;
-        }
-
-        .rewritten-content p {
-            margin-bottom: 15px;
-        }
-
-        .rewritten-content ul {
-            list-style-type: square;
-            margin-left: 20px;
-            margin-bottom: 15px;
-        }
-
-        .rewritten-content li {
-            margin-bottom: 8px;
-        }
-
-        .highlight-box {
-            background-color: #f8fafc;
-            border-left: 4px solid var(--accent-orange);
-            padding: 15px;
-            margin-top: 15px;
-            border-radius: 0 8px 8px 0;
-            font-size: 0.95rem;
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            background: var(--accent-blue);
-            color: rgba(255,255,255,0.7);
-            padding: 40px 20px;
-            text-align: center;
-            font-size: 0.9rem;
-            margin-top: 60px;
-        }
-    </style>
+footer{
+    background:#0c447c;
+    color:white;
+    text-align:center;
+    padding:25px;
+    margin-top:40px;
+}
+</style>
 </head>
 <body>
 
-    <!-- BARRE DE NAVIGATION ANIMÉE -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">CTRL.ALT.<span>ELITE</span></div>
-            <ul class="nav-menu">
-                <li class="nav-item"><a href="#needs">Identified Needs</a></li>
-                <li class="nav-item"><a href="#target">Target</a></li>
-                <li class="nav-item"><a href="#value">Unique Value</a></li>
-                <li class="nav-item"><a href="#stakeholders">Stakeholders</a></li>
-                <li class="nav-item"><a href="#role-ai">Role of AI</a></li>
-                <li class="nav-item"><a href="#barriers">Barriers</a></li>
-                <li class="nav-item"><a href="slides.html" style="color: var(--accent-orange); font-weight: bold;">Voir la Présentation (Oral)</a></li>
-                <li class="nav-item"><a href="accessiRoute_demo.html" style="color: var(--accent-orange); font-weight: bold;">✨ Tester la Démo</a>
-            </ul>
+<header>
+    <h1>AccessiRoute</h1>
+    <p>
+        Comment l'intelligence artificielle peut-elle faciliter les déplacements
+        des personnes en situation de handicap ?
+    </p>
+</header>
+
+<div class="container">
+
+    <div class="section">
+        <h2>Identified Needs</h2>
+
+        <p>
+            Les personnes en situation de handicap rencontrent régulièrement des
+            obstacles lors de leurs déplacements : escaliers non signalés,
+            ascenseurs en panne, trottoirs impraticables ou encore manque
+            d'informations adaptées.
+        </p>
+
+        <p>
+            Notre projet vise à améliorer leur autonomie grâce à une application
+            intelligente capable de proposer des itinéraires réellement adaptés
+            aux besoins de chaque utilisateur.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>Target – End Users</h2>
+
+        <p>Cette solution s'adresse principalement à :</p>
+
+        <ul>
+            <li>Les personnes à mobilité réduite (PMR).</li>
+            <li>Les personnes malvoyantes ou non-voyantes.</li>
+            <li>Les seniors.</li>
+            <li>Les personnes ayant des troubles cognitifs.</li>
+        </ul>
+
+        <p>
+            Elle peut également être utilisée par les accompagnateurs et les
+            services de transport souhaitant améliorer l'accessibilité.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>Unique Value Proposition</h2>
+
+        <p>
+            AccessiRoute utilise l'intelligence artificielle pour analyser les
+            données de transport, les infrastructures urbaines et les signalements
+            des utilisateurs afin de calculer l'itinéraire le plus accessible.
+        </p>
+
+        <div class="highlight">
+            <strong>Notre différence :</strong><br>
+            Contrairement aux applications GPS classiques, AccessiRoute adapte
+            automatiquement le trajet selon le handicap de l'utilisateur et
+            signale les obstacles susceptibles d'affecter son déplacement.
         </div>
-    </nav>
+    </div>
 
-    <!-- HERO SECTION : EN-TÊTE DU CANVA -->
-    <header class="hero">
-        <div class="hero-container">
-            <div class="canva-title">Project Definition</div>
-            <h1>Comment l'IA pourrait-elle améliorer nos déplacements de tous les jours ?</h1>
-            
-            <div class="meta-grid">
-                <div class="meta-item">Groupe : <strong>CTRL + ALT + Elite</strong></div>
-                <div class="meta-item">Date : <strong>04/06/2026</strong></div>
-                <div class="meta-item">Classe : <strong>2MTNE</strong></div>
+    <div class="section">
+        <h2>Stakeholders</h2>
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>Collectivités</h3>
+                <p>Fournissent les données sur l'accessibilité des infrastructures.</p>
             </div>
+
+            <div class="card">
+                <h3>Transports</h3>
+                <p>Partagent les informations sur les équipements accessibles.</p>
+            </div>
+
+            <div class="card">
+                <h3>Associations</h3>
+                <p>Participent à l'identification des besoins des utilisateurs.</p>
+            </div>
+
+            <div class="card">
+                <h3>Experts IA</h3>
+                <p>Développent les algorithmes de recommandation intelligente.</p>
+            </div>
+
         </div>
-    </header>
+    </div>
 
-    <main class="container">
+    <div class="section">
+        <h2>Role of AI</h2>
 
-        <!-- SECTION 1 : IDENTIFIED NEEDS -->
-        <section id="needs" class="section">
-            <div class="row">
-                <div class="col-text">
-                    <div class="card">
-                        <div class="canva-header-blue">Identified needs :</div>
-                        <div class="canva-question-grey">What need does your project address?</div>
-                        
-                        <div class="rewritten-content">
-                            <p>L'objectif de ce projet est d'apporter une réflexion approfondie sur les différentes problématiques et contraintes rencontrées quotidiennement lors de nos déplacements urbains. Nous étudions comment l'intégration de l'intelligence artificielle peut offrir des solutions concrètes pour optimiser et fluidifier ces trajets de tous les jours.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-image">
-                    <div class="img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=600&q=80" alt="Réseau routier urbain encombré">
-                    </div>
-                </div>
-            </div>
-        </section>
+        <p>
+            L'intelligence artificielle constitue le cœur du projet.
+            Elle collecte et analyse les informations en temps réel afin de :
+        </p>
 
-        <!-- SECTION 2 : TARGET - END USERS -->
-        <section id="target" class="section">
-            <div class="row row-reverse">
-                <div class="col-text">
-                    <div class="card">
-                        <div class="canva-header-blue">Target – End users :</div>
-                        <div class="canva-question-grey">Who is this project intended for? Who is affected by the identified need?</div>
-                        
-                        <div class="rewritten-content">
-                            <p>Ce projet s'adresse à l'ensemble des citoyens amenés à se déplacer quotidiennement pour leurs activités, qu'il s'agisse de se rendre à l'école, sur leur lieu de travail ou pour leurs loisirs.</p>
-                            <p>Le besoin de fluidité concerne directement plusieurs profils d'usagers :</p>
-                            <ul>
-                                <li>Les conducteurs de véhicules individuels.</li>
-                                <li>Les usagers des réseaux de transports en commun.</li>
-                                <li>Les adeptes des mobilités douces (cyclistes).</li>
-                                <li>Les piétons.</li>
-                            </ul>
-                            <p>L'intelligence artificielle interviendra pour aider chacun d'eux à économiser du temps, à contourner intelligemment les embouteillages et à rendre leurs déplacements globaux plus sûrs et performants.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-image">
-                    <div class="img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80" alt="Autobus et usagers dans la ville">
-                    </div>
-                </div>
-            </div>
-        </section>
+        <ul>
+            <li>Détecter les obstacles sur le parcours.</li>
+            <li>Proposer un itinéraire adapté au profil de l'utilisateur.</li>
+            <li>Anticiper les difficultés potentielles.</li>
+            <li>Améliorer continuellement la qualité des recommandations.</li>
+        </ul>
 
-        <!-- SECTION 3 : UNIQUE VALUE PROPOSITION -->
-        <section id="value" class="section">
-            <div class="card card-orange">
-                <div class="canva-header-blue" style="color: var(--accent-orange);">Unique value proposition :</div>
-                <div class="canva-question-grey">Describe the solutions your project provides. How does it differ from what exists today? How does it address the need you identified?</div>
-                
-                <div class="rewritten-content">
-                    <p>Notre application exploite la puissance de l'IA pour transformer la gestion des déplacements quotidiens grâce à un traitement algorithmique des conditions de circulation en temps réel. Le système calcule instantanément les meilleurs itinéraires alternatifs, évite activement la formation de goulots d'étranglement et informe immédiatement les usagers d'éventuels retards sur les réseaux de transport.</p>
-                    
-                    <div class="highlight-box">
-                        <strong>Notre facteur de différenciation :</strong> Contrairement aux solutions GPS traditionnelles du marché qui se limitent à constater le trafic actuel, notre système anticipe les ralentissements avant même qu'ils ne se forment. En proposant des recommandations prédictives et ultra-personnalisées, le projet permet de maximiser le gain de temps, d'élever le niveau de sécurité routière et de réduire l'empreinte carbone liée à la congestion automobile.
-                    </div>
-                </div>
-            </div>
-        </section>
+        <p>
+            Toutes les données personnelles sont sécurisées et utilisées dans le
+            respect de la vie privée.
+        </p>
+    </div>
 
-        <!-- SECTION 4 : STAKEHOLDERS -->
-        <section id="stakeholders" class="section">
-            <div class="row">
-                <div class="col-text">
-                    <div class="card">
-                        <div class="canva-header-blue">Stakeholders :</div>
-                        <div class="canva-question-grey">Who will you need for your project? (Government, companies, specific experts, potential legal framework...)</div>
-                        
-                        <div class="rewritten-content">
-                            <p>La concrétisation de ce projet s'appuie sur la collaboration étroite de plusieurs acteurs stratégiques :</p>
-                            <ul>
-                                <li><strong>Les experts et ingénieurs en IA :</strong> Indispensables pour concevoir, modéliser et assurer la maintenance de l'infrastructure logicielle.</li>
-                                <li><strong>Les entreprises et régies de transport :</strong> Partenaires clés pour centraliser et partager les données de trafic en direct ainsi que les données de traçabilité des flottes.</li>
-                                <li><strong>Les municipalités et l'État :</strong> Indispensables pour valider le cadre réglementaire, accorder les autorisations nécessaires au déploiement et garantir une protection absolue des données personnelles des usagers.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-image">
-                    <div class="img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Réunion d'experts et de partenaires">
-                    </div>
-                </div>
-            </div>
-        </section>
+    <div class="section">
+        <h2>Barriers</h2>
 
-        <!-- SECTION 5 : WHAT IS THE ROLE OF AI IN YOUR PROJECT? -->
-        <section id="role-ai" class="section">
-            <div class="row row-reverse">
-                <div class="col-text">
-                    <div class="card">
-                        <div class="canva-header-blue">What is the role of AI in your project?</div>
-                        <div class="canva-question-grey">Do you identify any technologies or outcomes that are necessary for your project? How do you ensure responsible use of AI?</div>
-                        
-                        <div class="rewritten-content">
-                            <p>L'intelligence artificielle agit comme le cerveau central du système. En corrélant les données de géolocalisation par satellite (GPS) et les flux d'informations du trafic routier mis à jour en direct, elle génère des prédictions de trajectoires optimales permettant un gain de temps mesurable pour chaque trajet.</p>
-                            <p>Pour assurer un déploiement éthique et responsable, <strong>les informations privées et données de positionnement des utilisateurs seront hautement sécurisées et ne seront en aucun cas partagées sans leur consentement et accord explicite</strong>.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-image">
-                    <div class="img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Interface de gestion de flux de données numériques">
-                    </div>
-                </div>
-            </div>
-        </section>
+        <p>
+            Le principal défi du projet est d'obtenir des informations fiables
+            et actualisées concernant l'accessibilité des infrastructures.
+        </p>
 
-        <!-- SECTION 6 : BARRIERS -->
-        <section id="barriers" class="section">
-            <div class="card card-orange">
-                <div class="canva-header-blue" style="color: var(--accent-orange);">Barriers :</div>
-                <div class="canva-question-grey">What constraints or barriers do you anticipate in implementing your project? Do you identify any ethical limits in the implementation of your project?</div>
-                
-                <div class="rewritten-content">
-                    <p>Le principal défi technique et opérationnel identifié pour ce projet réside dans <strong>la difficulté d'accéder à des flux de données massifs, fiables, stables et structurés en temps réel</strong>. La viabilité et la pertinence des prédictions de l'IA dépendent entièrement de la qualité de ces données d'entrée.</p>
-                </div>
-            </div>
-        </section>
+        <p>
+            Les pannes d'ascenseurs, les travaux ou les obstacles temporaires
+            doivent être signalés rapidement afin de garantir la pertinence des
+            trajets proposés.
+        </p>
 
-    </main>
+        <p>
+            Il est également essentiel de respecter les réglementations relatives
+            à la protection des données personnelles.
+        </p>
+    </div>
 
-    <!-- FOOTER -->
-    <footer>
-        <p>Project Canva Réécriture Professionnelle | Équipe <strong>CRTL + ALT + Elite</strong> | Classe <strong>2MTNE</strong> &copy; 2026</p>
-    </footer>
+</div>
+
+<footer>
+    Projet AccessiRoute • CTRL + ALT + Elite • 2026
+</footer>
 
 </body>
 </html>
